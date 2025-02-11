@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4984BE8C-7D87-4424-81EE-9BF8943E3E68}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>ReprintFA.My.MyApplication</StartupObject>
+    <RootNamespace>ReprintFA</RootNamespace>
+    <AssemblyName>ReprintFA</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ReprintFA.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ReprintFA.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TextTemplate.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MessagingToolkit.QRCode">
+      <HintPath>..\..\Users\66614\Downloads\MessagingToolkit.QRCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\KIDAKARN INTAPANYA\Documents\GitHub\Reprint-App-FA\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SqlClient.4.8.3\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Ports, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Ports.6.0.0\lib\net461\System.IO.Ports.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\KIDAKARN INTAPANYA\Documents\GitHub\Reprint-App-FA\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Json" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="api.vb" />
+    <Compile Include="connect.vb" />
+    <Compile Include="detail_tag_dummy.Designer.vb">
+      <DependentUpon>detail_tag_dummy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="detail_tag_dummy.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dummy_tag_form.Designer.vb">
+      <DependentUpon>dummy_tag_form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dummy_tag_form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dummy_tag_detail_form.Designer.vb">
+      <DependentUpon>dummy_tag_detail_form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dummy_tag_detail_form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loading.Designer.vb">
+      <DependentUpon>loading.vb</DependentUpon>
+    </Compile>
+    <Compile Include="loading.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="m83_reprint_form_sub.Designer.vb">
+      <DependentUpon>m83_reprint_form_sub.vb</DependentUpon>
+    </Compile>
+    <Compile Include="m83_reprint_form_sub.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="m83_reprint_form_batch.Designer.vb">
+      <DependentUpon>m83_reprint_form_batch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="m83_reprint_form_batch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="newfa_reprint_form.Designer.vb">
+      <DependentUpon>newfa_reprint_form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="newfa_reprint_form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="log_reprint_form.Designer.vb">
+      <DependentUpon>log_reprint_form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="log_reprint_form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="menu_form.Designer.vb">
+      <DependentUpon>menu_form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="menu_form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login_form.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login_form.Designer.vb">
+      <DependentUpon>login_form.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="model.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="newfa_reprint_formPD4.Designer.vb">
+      <DependentUpon>newfa_reprint_formPD4.vb</DependentUpon>
+    </Compile>
+    <Compile Include="newfa_reprint_formPD4.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="print_main_M83.Designer.vb">
+      <DependentUpon>print_main_M83.vb</DependentUpon>
+    </Compile>
+    <Compile Include="print_main_M83.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="scan_tag.Designer.vb">
+      <DependentUpon>scan_tag.vb</DependentUpon>
+    </Compile>
+    <Compile Include="scan_tag.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.Designer.vb">
+      <DependentUpon>Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Test.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="detail_tag_dummy.resx">
+      <DependentUpon>detail_tag_dummy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dummy_tag_form.resx">
+      <DependentUpon>dummy_tag_form.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dummy_tag_detail_form.resx">
+      <DependentUpon>dummy_tag_detail_form.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="loading.resx">
+      <DependentUpon>loading.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="m83_reprint_form_sub.resx">
+      <DependentUpon>m83_reprint_form_sub.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="m83_reprint_form_batch.resx">
+      <DependentUpon>m83_reprint_form_batch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="newfa_reprint_form.resx">
+      <DependentUpon>newfa_reprint_form.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="log_reprint_form.resx">
+      <DependentUpon>log_reprint_form.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login_form.resx">
+      <DependentUpon>login_form.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="menu_form.resx">
+      <DependentUpon>menu_form.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="newfa_reprint_formPD4.resx">
+      <DependentUpon>newfa_reprint_formPD4.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="print_main_M83.resx">
+      <DependentUpon>print_main_M83.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="scan_tag.resx">
+      <DependentUpon>scan_tag.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stock-logo-2 white 1.png" />
+    <None Include="Resources\qr-scan-icon-512x512-9bsp061y.png" />
+    <None Include="Resources\qr-scan-icon-512x512-9bsp061y %281%29.png" />
+    <None Include="Resources\images %281%29.png" />
+    <None Include="Resources\Submit.png" />
+    <Content Include="TextTemplate.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
