@@ -6,7 +6,7 @@ Imports Newtonsoft.Json
 Public Class print_main_M83
 	Dim QR_Generator As New MessagingToolkit.QRCode.Codec.QRCodeEncoder
 	Dim back_office As New Model
-	Dim dt_wi_tag, dt_actaul_tag, dt_box_tag, dt_seq_tag, dt_lot_tag, dt_qty_tag, dt_plan_tag, dt_qr_code_tag, dt_instr_tag, dt_ref_str_id, dt_log_tag_id As String
+	Dim dt_wi_tag, dt_actaul_tag, dt_box_tag, dt_seq_tag, dt_lot_tag, dt_qty_tag, dt_plan_tag, dt_qr_code_tag, dt_instr_tag, dt_ref_str_id, dt_log_tag_id, dt_log_id, dt_cur_qty As String
 
 	Private Sub print_main_M83_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -27,7 +27,6 @@ Public Class print_main_M83
 		dt_ref_str_id = ref_str_id
 		dt_log_tag_id = log_tag_id
 
-		Return
 		Dim printDoc As New PrintDocument()
 		Dim customPaperSize As New PaperSize("Custom", 311, 713)
 		printDoc.DefaultPageSettings.PaperSize = customPaperSize
@@ -36,14 +35,14 @@ Public Class print_main_M83
 		AddHandler printDoc.PrintPage, AddressOf PrintPage_Handler
 
 		PrintPreviewDialog1.Document = printDoc
-		'PrintPreviewDialog1.ShowDialog()
+		PrintPreviewDialog1.ShowDialog()
 		printDoc.Print()
 	End Sub
 
-	Public Sub printTagDummy(ByVal wi_tag As String, ByVal actaul_tag As String, ByVal box_tag As String, ByVal seq_tag As String, ByVal lot_tag As String, ByVal qty_tag_key As String, ByVal plan_tag As String, ByVal qr_code_tag As String, ByVal instr_tag As String, ByVal ref_str_id As String, ByVal log_tag_id As String)
+	Public Sub printTagDummy(ByVal wi_tag As String, ByVal actaul_tag As String, ByVal box_max As String, ByVal seq_tag As String, ByVal lot_tag As String, ByVal qty_tag_key As String, ByVal plan_tag As String, ByVal qr_code_tag As String, ByVal instr_tag As String, ByVal ref_str_id As String, ByVal log_id As String, ByVal cur_qty As String)
 		dt_wi_tag = wi_tag
 		dt_actaul_tag = actaul_tag
-		dt_box_tag = box_tag
+		dt_box_tag = box_max
 		dt_seq_tag = seq_tag
 		dt_lot_tag = lot_tag
 		dt_qty_tag = qty_tag_key
@@ -51,7 +50,8 @@ Public Class print_main_M83
 		dt_qr_code_tag = qr_code_tag
 		dt_instr_tag = instr_tag
 		dt_ref_str_id = ref_str_id
-		dt_log_tag_id = log_tag_id
+		dt_log_tag_id = log_id
+		dt_cur_qty = cur_qty
 
 		Dim printDoc As New PrintDocument()
 		Dim customPaperSize As New PaperSize("Custom", 311, 713)
@@ -141,7 +141,7 @@ Public Class print_main_M83
 		e.Graphics.DrawString("LOCATION", lb_font5.Font, Brushes.Black, 430, 60)
 		e.Graphics.DrawString("D4U10A1", batchModel.Font, Brushes.Black, 445, 75)
 
-		Dim shift_tag As String
+		Dim shift_tag As String = ""
 		'Console.WriteLine("dt_log_tag_id" & dt_log_tag_id)
 		'Console.WriteLine("date_plan" & date_plan)
 		Dim rs_shift = back_office.get_data_shift_reprint_m83_main(dt_log_tag_id, date_plan)
@@ -211,9 +211,9 @@ Public Class print_main_M83
 		Dim bitmap_qr_box As Bitmap = qrcode.Encode("TEST")
 		Dim qr_by_model = 158
 		Dim qr_by_model_left = 118
-		Dim iden_cd As String
-		Dim part_no_res1 As String
-		Dim part_no_res As String
+		Dim iden_cd As String = ""
+		Dim part_no_res1 As String = ""
+		Dim part_no_res As String = ""
 		Dim part_numm As Integer = 0
 		Dim act_date As String
 		Dim actdateConv As Date = DateTime.Now.ToString("dd/MM/yyyy")
@@ -336,7 +336,7 @@ Public Class print_main_M83
 		e.Graphics.DrawString("LOCATION", lb_font5.Font, Brushes.Black, 430, 60)
 		e.Graphics.DrawString("D4U10A1", batchModel.Font, Brushes.Black, 445, 75)
 
-		Dim shift_tag As String
+		Dim shift_tag As String = ""
 		'Console.WriteLine("dt_log_tag_id" & dt_log_tag_id)
 		'Console.WriteLine("date_plan" & date_plan)
 		Dim rs_shift = back_office.get_data_shift_reprint_m83_main(dt_log_tag_id, date_plan)
@@ -345,6 +345,7 @@ Public Class print_main_M83
 			shift_tag = item.pwi_shift
 		Next
 
+		'MsgBox(shift_tag)
 		e.Graphics.DrawString("SHIFT", lb_font3.Font, Brushes.Black, 460, 15)
 		e.Graphics.DrawString(shift_tag, LB_QTY.Font, Brushes.Black, 520, 30)
 		e.Graphics.DrawString("LINE", lb_font5.Font, Brushes.Black, 495, 124)
@@ -402,9 +403,9 @@ Public Class print_main_M83
 		Dim bitmap_qr_box As Bitmap = qrcode.Encode("TEST")
 		Dim qr_by_model = 158
 		Dim qr_by_model_left = 118
-		Dim iden_cd As String
-		Dim part_no_res1 As String
-		Dim part_no_res As String
+		Dim iden_cd As String = ""
+		Dim part_no_res1 As String = ""
+		Dim part_no_res As String = ""
 		Dim part_numm As Integer = 0
 		Dim act_date As String
 		Dim actdateConv As Date = DateTime.Now.ToString("dd/MM/yyyy")
@@ -433,6 +434,8 @@ Public Class print_main_M83
 		Dim space_lot As String = "                         "
 		Dim j As Integer = 1
 		For Each item As SpecialItem In specialItems
+			Dim qr_detail As String = "GBK1M083" & date_plan & dt_seq_tag & item.ITEM_CD & space_partno & date_actaul & space_qty & dt_qty_tag & dt_lot_tag & space_lot & date_actaul & dt_seq_tag & "51" & dt_box_tag
+
 			bitmap_qr_box = QR_Generator.Encode("GB" & "K1M083" & date_plan & dt_seq_tag & item.ITEM_CD & space_partno & date_actaul & space_qty & dt_qty_tag & dt_lot_tag & space_lot & date_actaul & dt_seq_tag & "51" & dt_box_tag)
 			e.Graphics.DrawString("QR No ." & j, BTitle.Font, Brushes.Black, qr_by_model_left, 215)
 			e.Graphics.DrawImage(bitmap_qr_box, qr_by_model, 226, 68, 60) 'Right top
@@ -440,6 +443,7 @@ Public Class print_main_M83
 			margin_top_no += 15
 			qr_by_model_left += 114
 			j = j + 1
+			back_office.insert_dummy_tag2(dt_log_tag_id, dt_qty_tag, dt_qty_tag, dt_box_tag, dt_box_tag, "ISUZU", qr_detail)
 		Next
 
 		e.Graphics.DrawString("FACTORY", lb_font3.Font, Brushes.Black, 15, 230)

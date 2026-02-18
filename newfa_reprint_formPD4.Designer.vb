@@ -365,7 +365,7 @@ Partial Class newfa_reprint_formPD4
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Controls.Add(Me.tbEndprint)
         Me.Panel1.Controls.Add(Me.tbStartprint)
-        Me.Panel1.Location = New System.Drawing.Point(12, 12)
+        Me.Panel1.Location = New System.Drawing.Point(19, 12)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(763, 574)
         Me.Panel1.TabIndex = 84
@@ -574,6 +574,7 @@ Partial Class newfa_reprint_formPD4
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "newfa_reprint_formPD4"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "newfa_reprint_formPD4"
         CType(Me.alert, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()

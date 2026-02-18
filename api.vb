@@ -5,6 +5,8 @@ Imports System.Windows.Forms.Form
 Imports System.Linq
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
+Imports System.Net.Http
+
 Module Api
     Public Function DownloadImage(ByVal _URL As String) As Image
         Dim _tmpImage As Image = Nothing
@@ -70,5 +72,25 @@ Module Api
             Return Nothing
         End Try
         Return re_data
+    End Function
+
+    Public Async Function Load_data_Await(ByVal _URL As String) As Task(Of String)
+        Try
+            Using client As New HttpClient()
+                client.Timeout = TimeSpan.FromSeconds(20)
+
+                Dim response As HttpResponseMessage = Await client.GetAsync(_URL)
+                If response.IsSuccessStatusCode Then
+                    Dim responseData As String = Await response.Content.ReadAsStringAsync()
+                    Return responseData
+                Else
+                    Console.WriteLine("HTTP Error: " & response.StatusCode)
+                    Return Nothing
+                End If
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("ERROR Load_data_Await: " & ex.Message)
+            Return Nothing
+        End Try
     End Function
 End Module

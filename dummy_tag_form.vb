@@ -14,6 +14,9 @@ Public Class dummy_tag_form
     Dim lot_tag, new_qr_code, production_type, part_no_tag, line_tag, wi_notdata, _location, PD, part_name_tag, model_tag, part_no_class, lot_class, line_class, seq_class, qr_code_tag, next_process, plan_, _actual, wi_tag, seq_tag, shift_tag As String
     Dim qty_tag, box_tag, ref_id, box_class, qty_class, box_max, log_id, cur_qty, box_tag_ps As Integer
 
+    Private Sub max_box_ps_Click(sender As Object, e As EventArgs) Handles max_box_ps.Click
+
+    End Sub
 
     Private Async Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
@@ -461,7 +464,7 @@ Public Class dummy_tag_form
             box_max = back_office.find_max_box(part_no_tag, lot_tag, line_tag, seq_tag)
             box_max += 1
 
-            Return
+
             Dim index As Integer = 1
             Do While index <= tag_show_data.Text
                 PrintDocument1.Print()
@@ -521,8 +524,8 @@ Public Class dummy_tag_form
         ' Process tags
         For index As Integer = 1 To tag_amount
             qr_detail = new_qr_code & box_max
-            newForm.printTagDummy(wi_tag, actaul_tag, box_max, seq_tag, lot_tag, qty_tag_key, plan_tag, qr_code_tag, instr_tag, tag_ref_str_id, log_id)
-            back_office.insert_dummy_tag2(log_id, cur_qty, qty_show_data.Text, box_tag, box_max, "ISUZU", qr_detail)
+            newForm.printTagDummy(wi_tag, actaul_tag, box_max, seq_tag, lot_tag, qty_tag_key, plan_tag, qr_code_tag, instr_tag, tag_ref_str_id, log_id, cur_qty)
+
 
             ' Check max box limit
             If box_max = 999 Then

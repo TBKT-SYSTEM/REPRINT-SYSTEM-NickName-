@@ -89,12 +89,13 @@ Partial Class menu_form
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(63, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(142, 18)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(72, 30)
+        Me.Label1.Size = New System.Drawing.Size(58, 24)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Label1"
         '
         'PictureBox1
         '
+        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(0, 252)
         Me.PictureBox1.Name = "PictureBox1"
@@ -110,7 +111,7 @@ Partial Class menu_form
         Me.Label2.ForeColor = System.Drawing.Color.Transparent
         Me.Label2.Location = New System.Drawing.Point(12, 18)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(0, 20)
+        Me.Label2.Size = New System.Drawing.Size(0, 15)
         Me.Label2.TabIndex = 4
         '
         'lot
@@ -119,7 +120,7 @@ Partial Class menu_form
         Me.lot.BackColor = System.Drawing.Color.Transparent
         Me.lot.Location = New System.Drawing.Point(735, 18)
         Me.lot.Name = "lot"
-        Me.lot.Size = New System.Drawing.Size(0, 20)
+        Me.lot.Size = New System.Drawing.Size(0, 15)
         Me.lot.TabIndex = 7
         Me.lot.Visible = False
         '
@@ -157,7 +158,7 @@ Partial Class menu_form
         Me.month_data.Location = New System.Drawing.Point(417, 339)
         Me.month_data.MaxDropDownItems = 5
         Me.month_data.Name = "month_data"
-        Me.month_data.Size = New System.Drawing.Size(174, 36)
+        Me.month_data.Size = New System.Drawing.Size(174, 30)
         Me.month_data.TabIndex = 11
         Me.month_data.Visible = False
         '
@@ -170,7 +171,7 @@ Partial Class menu_form
         Me.line_data.FormattingEnabled = True
         Me.line_data.Location = New System.Drawing.Point(417, 252)
         Me.line_data.Name = "line_data"
-        Me.line_data.Size = New System.Drawing.Size(174, 36)
+        Me.line_data.Size = New System.Drawing.Size(174, 30)
         Me.line_data.TabIndex = 12
         Me.line_data.Visible = False
         '
@@ -183,7 +184,7 @@ Partial Class menu_form
         Me.pd_data.FormattingEnabled = True
         Me.pd_data.Location = New System.Drawing.Point(211, 252)
         Me.pd_data.Name = "pd_data"
-        Me.pd_data.Size = New System.Drawing.Size(174, 36)
+        Me.pd_data.Size = New System.Drawing.Size(174, 30)
         Me.pd_data.TabIndex = 13
         Me.pd_data.Visible = False
         '
@@ -204,7 +205,7 @@ Partial Class menu_form
         Me.pd.AutoSize = True
         Me.pd.Location = New System.Drawing.Point(12, 38)
         Me.pd.Name = "pd"
-        Me.pd.Size = New System.Drawing.Size(0, 20)
+        Me.pd.Size = New System.Drawing.Size(0, 15)
         Me.pd.TabIndex = 15
         Me.pd.Visible = False
         '
@@ -213,7 +214,7 @@ Partial Class menu_form
         Me.line.AutoSize = True
         Me.line.Location = New System.Drawing.Point(12, 38)
         Me.line.Name = "line"
-        Me.line.Size = New System.Drawing.Size(0, 20)
+        Me.line.Size = New System.Drawing.Size(0, 15)
         Me.line.TabIndex = 16
         Me.line.Visible = False
         '
@@ -227,7 +228,7 @@ Partial Class menu_form
         Me.year_data.Items.AddRange(New Object() {"2022"})
         Me.year_data.Location = New System.Drawing.Point(211, 338)
         Me.year_data.Name = "year_data"
-        Me.year_data.Size = New System.Drawing.Size(174, 36)
+        Me.year_data.Size = New System.Drawing.Size(174, 30)
         Me.year_data.TabIndex = 18
         Me.year_data.Visible = False
         '
@@ -289,7 +290,7 @@ Partial Class menu_form
         Me.asterisk_1.ForeColor = System.Drawing.Color.Red
         Me.asterisk_1.Location = New System.Drawing.Point(306, 214)
         Me.asterisk_1.Name = "asterisk_1"
-        Me.asterisk_1.Size = New System.Drawing.Size(24, 30)
+        Me.asterisk_1.Size = New System.Drawing.Size(19, 23)
         Me.asterisk_1.TabIndex = 23
         Me.asterisk_1.Text = "*"
         Me.asterisk_1.Visible = False
@@ -302,7 +303,7 @@ Partial Class menu_form
         Me.asterisk_2.ForeColor = System.Drawing.Color.Red
         Me.asterisk_2.Location = New System.Drawing.Point(521, 216)
         Me.asterisk_2.Name = "asterisk_2"
-        Me.asterisk_2.Size = New System.Drawing.Size(24, 30)
+        Me.asterisk_2.Size = New System.Drawing.Size(19, 23)
         Me.asterisk_2.TabIndex = 24
         Me.asterisk_2.Text = "*"
         Me.asterisk_2.Visible = False
@@ -315,7 +316,7 @@ Partial Class menu_form
         Me.asterisk_3.ForeColor = System.Drawing.Color.Red
         Me.asterisk_3.Location = New System.Drawing.Point(341, 302)
         Me.asterisk_3.Name = "asterisk_3"
-        Me.asterisk_3.Size = New System.Drawing.Size(24, 30)
+        Me.asterisk_3.Size = New System.Drawing.Size(19, 23)
         Me.asterisk_3.TabIndex = 25
         Me.asterisk_3.Text = "*"
         Me.asterisk_3.Visible = False
@@ -328,7 +329,7 @@ Partial Class menu_form
         Me.asterisk_4.ForeColor = System.Drawing.Color.Red
         Me.asterisk_4.Location = New System.Drawing.Point(447, 381)
         Me.asterisk_4.Name = "asterisk_4"
-        Me.asterisk_4.Size = New System.Drawing.Size(24, 30)
+        Me.asterisk_4.Size = New System.Drawing.Size(19, 23)
         Me.asterisk_4.TabIndex = 26
         Me.asterisk_4.Text = "*"
         Me.asterisk_4.Visible = False
@@ -346,7 +347,7 @@ Partial Class menu_form
         Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.DateTimePicker1.Location = New System.Drawing.Point(211, 339)
         Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(174, 35)
+        Me.DateTimePicker1.Size = New System.Drawing.Size(174, 30)
         Me.DateTimePicker1.TabIndex = 27
         Me.DateTimePicker1.Value = New Date(2022, 9, 14, 8, 35, 56, 235)
         Me.DateTimePicker1.Visible = False
@@ -382,7 +383,7 @@ Partial Class menu_form
         Me.tag_type.AutoSize = True
         Me.tag_type.Location = New System.Drawing.Point(84, 68)
         Me.tag_type.Name = "tag_type"
-        Me.tag_type.Size = New System.Drawing.Size(0, 20)
+        Me.tag_type.Size = New System.Drawing.Size(0, 15)
         Me.tag_type.TabIndex = 32
         Me.tag_type.Visible = False
         '
@@ -403,8 +404,9 @@ Partial Class menu_form
         '
         'PictureBox4
         '
-        Me.PictureBox4.BackColor = System.Drawing.Color.Orange
-        Me.PictureBox4.Image = Global.ReprintFA.My.Resources.Resources.images__1_
+        Me.PictureBox4.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox4.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox4.Image = Global.ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__1__removebg_preview
         Me.PictureBox4.Location = New System.Drawing.Point(629, 261)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(74, 74)
@@ -414,50 +416,62 @@ Partial Class menu_form
         '
         'modalScanSearch
         '
-        Me.modalScanSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.modalScanSearch.BackgroundImage = Global.ReprintFA.My.Resources.Resources.Submit
-        Me.modalScanSearch.Location = New System.Drawing.Point(96, 146)
+        Me.modalScanSearch.BackColor = System.Drawing.Color.Transparent
+        Me.modalScanSearch.BackgroundImage = Global.ReprintFA.My.Resources.Resources.SCAN_TAG1
+        Me.modalScanSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.modalScanSearch.Location = New System.Drawing.Point(107, 145)
         Me.modalScanSearch.Name = "modalScanSearch"
-        Me.modalScanSearch.Size = New System.Drawing.Size(630, 371)
+        Me.modalScanSearch.Size = New System.Drawing.Size(630, 362)
         Me.modalScanSearch.TabIndex = 35
         Me.modalScanSearch.TabStop = False
         Me.modalScanSearch.Visible = False
         '
         'inputScanSearch
         '
-        Me.inputScanSearch.Location = New System.Drawing.Point(168, 262)
+        Me.inputScanSearch.BackColor = System.Drawing.Color.White
+        Me.inputScanSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.inputScanSearch.Font = New System.Drawing.Font("Impact", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.inputScanSearch.Location = New System.Drawing.Point(202, 291)
         Me.inputScanSearch.Multiline = True
         Me.inputScanSearch.Name = "inputScanSearch"
-        Me.inputScanSearch.Size = New System.Drawing.Size(487, 50)
+        Me.inputScanSearch.Size = New System.Drawing.Size(441, 31)
         Me.inputScanSearch.TabIndex = 36
         Me.inputScanSearch.Visible = False
         '
         'buttonScanSearch
         '
-        Me.buttonScanSearch.BackColor = System.Drawing.Color.MidnightBlue
+        Me.buttonScanSearch.BackColor = System.Drawing.Color.White
+        Me.buttonScanSearch.BackgroundImage = Global.ReprintFA.My.Resources.Resources.SUBMIT__2_
+        Me.buttonScanSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.buttonScanSearch.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.buttonScanSearch.FlatAppearance.BorderSize = 0
+        Me.buttonScanSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.buttonScanSearch.Font = New System.Drawing.Font("Segoe UI", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.buttonScanSearch.ForeColor = System.Drawing.Color.BlanchedAlmond
-        Me.buttonScanSearch.Location = New System.Drawing.Point(333, 347)
+        Me.buttonScanSearch.ForeColor = System.Drawing.Color.Black
+        Me.buttonScanSearch.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.buttonScanSearch.Location = New System.Drawing.Point(341, 363)
         Me.buttonScanSearch.Name = "buttonScanSearch"
-        Me.buttonScanSearch.Size = New System.Drawing.Size(154, 48)
+        Me.buttonScanSearch.Size = New System.Drawing.Size(157, 60)
         Me.buttonScanSearch.TabIndex = 37
-        Me.buttonScanSearch.Text = "Submit"
         Me.buttonScanSearch.UseVisualStyleBackColor = False
         Me.buttonScanSearch.Visible = False
         '
         'closeModalScanSearch
         '
         Me.closeModalScanSearch.BackColor = System.Drawing.Color.Transparent
-        Me.closeModalScanSearch.Location = New System.Drawing.Point(649, 166)
+        Me.closeModalScanSearch.BackgroundImage = Global.ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__2_
+        Me.closeModalScanSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.closeModalScanSearch.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.closeModalScanSearch.Location = New System.Drawing.Point(665, 150)
         Me.closeModalScanSearch.Name = "closeModalScanSearch"
-        Me.closeModalScanSearch.Size = New System.Drawing.Size(59, 63)
+        Me.closeModalScanSearch.Size = New System.Drawing.Size(58, 55)
         Me.closeModalScanSearch.TabIndex = 38
         Me.closeModalScanSearch.TabStop = False
         Me.closeModalScanSearch.Visible = False
         '
         'menu_form
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(800, 600)

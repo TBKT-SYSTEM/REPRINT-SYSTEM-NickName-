@@ -4,6 +4,8 @@ Imports System.Data.SqlClient
 Imports System.Globalization
 Imports System.Web.Script.Serialization
 Imports System.ComponentModel
+Imports System.Security.Cryptography
+Imports System.Windows.Documents
 
 Public Class scan_tag
     Dim back_office As New Model()
@@ -69,12 +71,15 @@ Public Class scan_tag
         'asdasd
     End Sub
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Dim loadpage As New menu_form
-        loadpage.Show()
-        Me.Close()
+        'Dim loadpage As New menu_form
+        'loadpage.Show()
+        menu_form.Show()
+        Me.Hide()
     End Sub
 
     Private Async Sub qr_code_KeyDown(sender As Object, e As KeyEventArgs) Handles qr_code.KeyDown
+        Dim last3 As String = ""
+        Dim model_ As New Model()
         If e.KeyCode <> Keys.Enter Then Exit Sub
 
         qr_code_scan_box = qr_code.Text.Trim()
@@ -88,36 +93,42 @@ Public Class scan_tag
             Exit Sub
         End If
 
-        ' Show Loading Form
-        loadingForm = New loading()
-        Await loadingForm.load()
+        'If check_duplicate(qr_code_scan_box) = True Then
+        '    MessageBox.Show("TAG นี้ถูกพิมพ์ไปแล้ว")
+        '    Exit Sub
+        'End If
+
+        'Return
+
+        last3 = qr_code_scan_box.Substring(qr_code_scan_box.Length - 3)
 
         Try
-            Dim model_ As New Model()
             Dim rs2 As String = model_.get_data_tag_log(qr_code_scan_box)
 
-            If rs2 <> "0" Then
-                Dim result_data_json As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs2)
-                If result_data_json.Count > 0 Then
-                    Dim item = result_data_json(0)
-                    id_log = item("log_id").ToString()
-                    ref_id = item("log_ref_id").ToString()
-                    status = item("log_status").ToString()
-                End If
-            End If
+            If rs2 = "0" Then
 
-            If id_log <> "0" Then
+                HandleNewTag()
+            Else
+                Dim result_data_json As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs2)
+                Dim item = result_data_json(0)
+
+                id_log = item("log_id").ToString()
+                'MsgBox("id_logkey =>" & id_log)
+                ref_id = item("log_ref_id").ToString()
+                status = item("log_status").ToString()
+
                 If status = "2" Then
                     ShowReprintAlert(id_log)
                     Exit Sub
                 End If
 
+                If last3 >= 800 Then
+                    Await loadingForm.load()
+                End If
+
                 PictureBox1.Visible = False
                 logreprint_app()
                 get_data()
-
-            Else
-                HandleNewTag()
             End If
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -145,7 +156,11 @@ Public Class scan_tag
         qr_code.Text = ""
     End Sub
 
+    'After scan tag -----------------------------------------------------------------------------------------------------
+
     Private Sub HandleNewTag()
+        'MsgBox("HandleNewTag")
+
         If check_status() = "2" Then
             ShowReprintAlert(id)
             Exit Sub
@@ -157,12 +172,11 @@ Public Class scan_tag
         Dim Model_reprint As New Model()
         Dim rs3 As String = Model_reprint.GET_DATA_TAG(qr_code_scan_box)
 
-        If rs3 <> "0" Then
-
+        If Not String.IsNullOrEmpty(rs3) AndAlso (rs3.Trim.StartsWith("[") OrElse rs3.Trim.StartsWith("{")) Then
             Dim result_data_json As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs3)
             If result_data_json.Count > 0 Then
-                Dim item = result_data_json(0)
-                next_process = If(item.ContainsKey("next_proc"), item("next_proc").ToString(), " ")
+                Dim item As Dictionary(Of String, Object) = CType(result_data_json(0), Dictionary(Of String, Object))
+
                 id = item("id").ToString()
                 wi.Text = item("wi").ToString()
                 box_no.Text = item("box_no").ToString()
@@ -185,6 +199,8 @@ Public Class scan_tag
                 quatity = Trim(tim)
                 plan_date.Text = da.ToString("dd/MM/yyyy")
                 actual_date.Text = act.ToString("dd/MM/yyyy")
+                next_process = item("next_proc").ToString()
+
             End If
         End If
         get_data()
@@ -193,40 +209,54 @@ Public Class scan_tag
     End Sub
 
     Public Sub logreprint_app()
-        Dim Model_reprint As New Model()
-        'Dim reader As SqlDataReader
-        'reader = Model_reprint.get_data_tag_log(Trim(qr_code.Text))
-        Dim rs2 = Model_reprint.get_data_tag_log(Trim(qr_code.Text))
-        If rs2 <> "0" Then
-            Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs2)
-            For Each item As Object In result_data_json
-                Dim qr_detail As String = item("log_qr_detail").ToString()
-                box_no.Text = item("log_new_box_no").ToString()
-                qr = item("log_qr_detail").ToString()
-                next_process = item("log_new_next_proc").ToString()
-                Dim plan As String = qr_detail.Substring(8, 8)
-                get_data_tag_inserttwo()
-                plan_ = plan
-                Dim actual As String = qr_detail.Substring(44, 8)
-                _actual = actual
-                Dim act As Date = Date.ParseExact(_actual, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
-                Dim da As Date = Date.ParseExact(plan_, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
-                Dim lot As String = qr_detail.Substring(44, 18)
-                lot_no.Text = lot.Substring(lot.Length - 4)
-                Dim qt_y As String = lot.Substring(Trim(lot.Length - 8))
-                Dim tim As String = qt_y.Remove(qt_y.Length - 4)
-                qty.Text = Trim(tim)
-                quatity = Trim(tim)
-                plan_date.Text = da.ToString("dd/MM/yyyy")
-                actual_date.Text = act.ToString("dd/MM/yyyy")
-            Next
+        Dim model As New Model()
+        Dim rs2 As String = model.get_data_tag_log(Trim(qr_code.Text))
+
+        If String.IsNullOrWhiteSpace(rs2) OrElse rs2 = "0" Then
+            MsgBox("No data found.")
+            Exit Sub
         End If
+
+        Dim result As List(Of Object) =
+        New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs2)
+
+        For Each item As Dictionary(Of String, Object) In result
+            Dim qr_detail As String = CStr(item("log_qr_detail"))
+
+            If String.IsNullOrEmpty(qr_detail) OrElse qr_detail.Length < 62 Then
+                MsgBox("QR detail is invalid.")
+                Continue For
+            End If
+
+            Dim plan As String = qr_detail.Substring(8, 8)      ' yyyyMMdd
+            Dim actual As String = qr_detail.Substring(44, 8)   ' yyyyMMdd
+
+            Dim da As Date = Date.ParseExact(plan, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
+            Dim act As Date = Date.ParseExact(actual, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
+
+            Dim lot As String = qr_detail.Substring(44, 18)
+            Dim qt_y As String = lot.Substring(lot.Length - 8)
+            Dim tim As String = qt_y.Remove(qt_y.Length - 4)
+
+            box_no.Text = CStr(item("log_new_box_no"))
+            qr = qr_detail
+            next_process = CStr(item("log_new_next_proc"))
+
+            plan_ = plan
+            _actual = actual
+            lot_no.Text = lot.Substring(lot.Length - 4)
+            qty.Text = tim.Trim()
+            quatity = tim.Trim()
+            plan_date.Text = da.ToString("dd/MM/yyyy")
+            actual_date.Text = act.ToString("dd/MM/yyyy")
+
+            get_data_tag_inserttwo()
+        Next
     End Sub
 
-    Public Sub get_data_tag_inserttwo()
 
+    Public Sub get_data_tag_inserttwo()
         Try
-            ' Initialize the model and retrieve log references
             Dim modelReprint As New Model()
             Dim qrCodeCheck As String = qr.Substring(0, 52)
             Dim minCurBox As Integer = back_office.get_log_ref_id(qrCodeCheck)
@@ -242,7 +272,6 @@ Public Class scan_tag
             Else
                 rs = modelReprint.get_data_all(logRefId)
             End If
-
 
             ' Deserialize and process the data
             Dim resultData As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
@@ -268,17 +297,20 @@ Public Class scan_tag
         Dim Model_reprint As New Model()
 
         Dim rs = Model_reprint.GET_DATA_TAG_2(wi.Text)
+
         If rs <> "0" Then
             Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
             For Each item As Object In result_data_json
-                model.Text = item("MODEL").ToString()
-                part_name.Text = item("ITEM_NAME").ToString()
-                line.Text = item("LINE_CD").ToString()
-                part_no.Text = item("ITEM_CD").ToString()
-                PD = item("PD").ToString()
-                _location = item("LOCATION_PART").ToString()
+                ' ตรวจสอบว่าค่ามีอยู่หรือไม่ก่อนเข้าถึง
+                model.Text = If(item.ContainsKey("MODEL") AndAlso item("MODEL") IsNot Nothing, item("MODEL").ToString(), "")
+                part_name.Text = If(item.ContainsKey("ITEM_NAME") AndAlso item("ITEM_NAME") IsNot Nothing, item("ITEM_NAME").ToString(), "")
+                line.Text = If(item.ContainsKey("LINE_CD") AndAlso item("LINE_CD") IsNot Nothing, item("LINE_CD").ToString(), "")
+                part_no.Text = If(item.ContainsKey("ITEM_CD") AndAlso item("ITEM_CD") IsNot Nothing, item("ITEM_CD").ToString(), "")
+                PD = If(item.ContainsKey("PD") AndAlso item("PD") IsNot Nothing, item("PD").ToString(), "")
+                _location = If(item.ContainsKey("LOCATION_PART") AndAlso item("LOCATION_PART") IsNot Nothing, item("LOCATION_PART").ToString(), "")
             Next
         End If
+
         qty_pcs.Text = (quatity & " " & "Pcs.")
         qty_pcs.Visible = True
         wi.Visible = True
@@ -299,6 +331,7 @@ Public Class scan_tag
         qty.Focus()
         loadingForm.Close()
     End Sub
+
 
     Private Sub qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles qty.KeyPress
         Dim ch As Char = e.KeyChar
@@ -415,7 +448,7 @@ Public Class scan_tag
         new_qty = quatity - qty.Text()
         qty_new = new_qty
         Dim connect = conn.connect_reprint_newfa()
-
+        'MsgBox("im here")
         make_qr()
         If id_log = 0 Then
 
@@ -427,7 +460,7 @@ Public Class scan_tag
                 Nbox_no = box_number_max + 1
                 nbox_no_s = Nbox_no + 1
             End If
-
+            'MsgBox("Nbox_no =>", Nbox_no)
 
             Dim Firstbox As String = (dot & Nbox_no)
             qr_code_tag1 = Firstbox
@@ -455,71 +488,78 @@ Public Class scan_tag
             check = 1
             model_re.update_status_tag_print_detail(id)
         Else
+            Try
+                'MsgBox("ref_id =>", ref_id)
+                Dim box_plus As Integer = model_re.get_max_boxno(id_log)
+                'MsgBox("box_plus =>" & box_plus)
+                Dim newbox = box_plus + 1
+                Dim newbox_2 = newbox + 1
+                'MsgBox(newbox & "  " & newbox_2)
+                qr_scan_tag = dot
+                Dim subPF As String = qr_scan_tag.Substring(2, 3)
+                Dim id_ref_program As String = ""
+                If subPF = "K1P" Then
+                    id_ref_program = ref_id
+                Else
+                    id_ref_program = id_log
+                End If
+                'MsgBox("qr :" & qr_scan_tag)
+                Dim box_number_max = back_office.get_box_first_scan(Trim(qr_scan_tag))
+                'MsgBox("max :" & box_number_max)
+                If box_number_max <> 0 Then
+                    newbox = box_number_max + 1
+                    newbox_2 = newbox + 1
+                End If
+                box_tag_2 = newbox_2
+                box_tag = newbox
+                Dim num_char_box2 As Integer = newbox_2.ToString().Length
+                Dim num_char_box1 As Integer = newbox.ToString().Length
+                Dim boxString2 As String = ""
+                Dim boxString As String = ""
+                If num_char_box2 = 1 Then
+                    boxString2 = "00" & newbox_2
+                ElseIf num_char_box2 = 2 Then
+                    boxString2 = "0" & newbox_2
+                Else
+                    boxString2 = newbox_2
+                End If
 
-            Dim box_plus As Integer = model_re.get_max_boxno(ref_id)
-            'MsgBox("box plus :" & box_plus)
-            Dim newbox = box_plus + 1
-            Dim newbox_2 = newbox + 1
-            'MsgBox(newbox & "  " & newbox_2)
-            qr_scan_tag = dot
-            Dim subPF As String = qr_scan_tag.Substring(2, 3)
-            Dim id_ref_program As String = ""
-            If subPF = "K1P" Then
-                id_ref_program = ref_id
-            Else
-                id_ref_program = id_log
-            End If
-            'MsgBox("qr :" & qr_scan_tag)
-            Dim box_number_max = back_office.get_box_first_scan(Trim(qr_scan_tag))
-            'MsgBox("max :" & box_number_max)
-            If box_number_max <> 0 Then
-                newbox = box_number_max + 1
-                newbox_2 = newbox + 1
-            End If
-            box_tag_2 = newbox_2
-            box_tag = newbox
 
-            Dim num_char_box2 As Integer = newbox_2.ToString().Length
-            Dim num_char_box1 As Integer = newbox.ToString().Length
-            Dim boxString2 As String = ""
-            Dim boxString As String = ""
-            If num_char_box2 = 1 Then
-                boxString2 = "00" & newbox_2
-            ElseIf num_char_box2 = 2 Then
-                boxString2 = "0" & newbox_2
-            Else
-                boxString2 = newbox_2
-            End If
+                If num_char_box1 = 1 Then
+                    boxString = "00" & newbox
+                ElseIf num_char_box1 = 2 Then
+                    boxString = "0" & newbox
+                Else
+                    boxString = newbox
+                End If
+                '<----------------- qr first ------------------>
+                Dim Firstbox As String = (dot & boxString)
+                qr_code_tag1 = Firstbox
+                Dim strCommand_insert1 = "INSERT INTO log_reprint_app (id_menu,log_ref_db,log_ref_id,log_cur_qty,log_new_qty,log_cur_box_no,log_new_box_no,log_cur_next_proc,log_new_next_proc,log_qr_detail,log_status,log_created_date,log_created_by,log_updated_date,log_updated_by )VALUES (1,1," & id_ref_program & "," & quatity & "," & qty_tag & "," & box_no.Text & "," & newbox & ",'" & next_process & "','" & next_process & "','" & Firstbox & "',1,CURRENT_TIMESTAMP,'" & userID.ToUpper() & "',CURRENT_TIMESTAMP,'" & userID.ToUpper() & "')"
+                Dim command_1 As SqlCommand = New SqlCommand(strCommand_insert1, connect)
+                Dim reader_1 = command_1.ExecuteNonQuery()
+                Dim qr_code As String = qr.Substring(0, 52)
+                Dim qr_code_ As String = qr.Substring(87, 13)
+                '<----------------- qr second ------------------>
+                If new_qty.ToString.Length = 1 Then
+                    second = (qr_code & "     " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
+                ElseIf new_qty.ToString.Length = 2 Then
+                    second = (qr_code & "    " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
+                ElseIf new_qty.ToString.Length = 3 Then
+                    second = (qr_code & "   " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
+                ElseIf new_qty.ToString.Length = 4 Then
+                    second = (qr_code & "  " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
+                End If
+                Dim strCommand_insert2 = "INSERT INTO log_reprint_app (id_menu,log_ref_db,log_ref_id,log_cur_qty,log_new_qty,log_cur_box_no,log_new_box_no,log_cur_next_proc,log_new_next_proc,log_qr_detail,log_status,log_created_date,log_created_by,log_updated_date,log_updated_by )VALUES (1,1," & id_ref_program & "," & quatity & "," & new_qty & "," & box_no.Text & "," & newbox_2 & ",'" & next_process & "','" & next_process & "','" & second & "',1,CURRENT_TIMESTAMP,'" & userID.ToUpper() & "',CURRENT_TIMESTAMP,'" & userID.ToUpper() & "')"
+                Dim command_2 As SqlCommand = New SqlCommand(strCommand_insert2, connect)
+                Dim reader_2 = command_2.ExecuteNonQuery()
+                model_re.update_status(id_ref_program)
+                check = 1
 
+            Catch ex As Exception
+                MsgBox("An error occurred: " & ex.Message)
+            End Try
 
-            If num_char_box1 = 1 Then
-                boxString = "00" & newbox
-            ElseIf num_char_box1 = 2 Then
-                boxString = "0" & newbox
-            Else
-                boxString = newbox
-            End If
-            '<----------------- qr first ------------------>
-            Dim Firstbox As String = (dot & boxString)
-            qr_code_tag1 = Firstbox
-            Dim strCommand_insert1 = "INSERT INTO log_reprint_app (id_menu,log_ref_db,log_ref_id,log_cur_qty,log_new_qty,log_cur_box_no,log_new_box_no,log_cur_next_proc,log_new_next_proc,log_qr_detail,log_status,log_created_date,log_created_by,log_updated_date,log_updated_by )VALUES (1,1," & id_ref_program & "," & quatity & "," & qty_tag & "," & box_no.Text & "," & newbox & ",'" & next_process & "','" & next_process & "','" & Firstbox & "',1,CURRENT_TIMESTAMP,'" & userID.ToUpper() & "',CURRENT_TIMESTAMP,'" & userID.ToUpper() & "')"
-            Dim command_1 As SqlCommand = New SqlCommand(strCommand_insert1, connect)
-            Dim reader_1 = command_1.ExecuteNonQuery()
-            Dim qr_code As String = qr.Substring(0, 52)
-            Dim qr_code_ As String = qr.Substring(87, 13)
-            '<----------------- qr second ------------------>
-            If new_qty.ToString.Length = 1 Then
-                second = (qr_code & "     " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
-            ElseIf new_qty.ToString.Length = 2 Then
-                second = (qr_code & "    " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
-            ElseIf new_qty.ToString.Length = 3 Then
-                second = (qr_code & "   " & new_qty & lot_no.Text & "                         " & qr_code_ & boxString2)
-            End If
-            Dim strCommand_insert2 = "INSERT INTO log_reprint_app (id_menu,log_ref_db,log_ref_id,log_cur_qty,log_new_qty,log_cur_box_no,log_new_box_no,log_cur_next_proc,log_new_next_proc,log_qr_detail,log_status,log_created_date,log_created_by,log_updated_date,log_updated_by )VALUES (1,1," & id_ref_program & "," & quatity & "," & new_qty & "," & box_no.Text & "," & newbox_2 & ",'" & next_process & "','" & next_process & "','" & second & "',1,CURRENT_TIMESTAMP,'" & userID.ToUpper() & "',CURRENT_TIMESTAMP,'" & userID.ToUpper() & "')"
-            Dim command_2 As SqlCommand = New SqlCommand(strCommand_insert2, connect)
-            Dim reader_2 = command_2.ExecuteNonQuery()
-            model_re.update_status(id_ref_program)
-            check = 1
         End If
         If check = 1 Then
 
@@ -579,8 +619,8 @@ Public Class scan_tag
         End If
         'PrintPreviewDialog1.ShowDialog()
         'PrintPreviewDialog2.ShowDialog()
-        'PrintDocument1.Print()
-        'PrintDocument2.Print()
+        PrintDocument1.Print()
+        PrintDocument2.Print()
     End Sub
 
     Private Sub button_cancel_Click(sender As Object, e As EventArgs) Handles button_cancel.Click
@@ -828,6 +868,7 @@ Public Class scan_tag
         End If
         Return id
     End Function
+
     Private Sub qty_KeyDown(sender As Object, e As KeyEventArgs) Handles qty.KeyDown
         Select Case e.KeyCode
             Case Keys.Enter
@@ -887,6 +928,26 @@ Public Class scan_tag
         End If
         Return check
     End Function
+
+    Public Function check_duplicate(ByVal qr_code As String) As Boolean
+        Try
+            Dim rs As String = back_office.check_duplicate_tag_fa(qr_code)
+            'MsgBox("rs", rs)
+            If rs <> "0" Then
+                Dim result_data_json As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
+
+                If result_data_json.Count > 0 Then
+                    Return True
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox("ERROR!! check_duplicate: " & ex.Message())
+        End Try
+
+        ' ถ้าไม่พบ หรือเกิด error
+        Return False
+    End Function
+
     '<----------------------  1-10  --------------------------->
     Private Sub num1_Click(sender As Object, e As EventArgs) Handles num1.Click
         number_input.Text = number_input.Text + "1"
@@ -900,6 +961,7 @@ Public Class scan_tag
             Exit Sub
         End If
     End Sub
+
     Private Sub num2_Click(sender As Object, e As EventArgs) Handles num2.Click
         number_input.Text = number_input.Text + "2"
         Dim num As Integer = number_input.Text
@@ -951,6 +1013,7 @@ Public Class scan_tag
             Exit Sub
         End If
     End Sub
+
     Private Sub num6_Click(sender As Object, e As EventArgs) Handles num6.Click
         number_input.Text = number_input.Text + "6"
         Dim num As Integer = number_input.Text
@@ -963,6 +1026,7 @@ Public Class scan_tag
             Exit Sub
         End If
     End Sub
+
     Private Sub num7_Click(sender As Object, e As EventArgs) Handles num7.Click
         number_input.Text = number_input.Text + "7"
         Dim num As Integer = number_input.Text

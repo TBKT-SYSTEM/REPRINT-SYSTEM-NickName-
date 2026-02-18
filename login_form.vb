@@ -1,8 +1,31 @@
 Public Class login_form
+
     Public Str
     Public id As Integer
     Public id_user As Integer
+    Dim moveForm As Boolean
+    Dim mouseX As Integer
+    Dim mouseY As Integer
 
+    ' Mouse Down Event (When user clicks)
+    Private Sub login_form_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        moveForm = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    ' Mouse Move Event (When user moves the form)
+    Private Sub login_form_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+        If moveForm Then
+            Me.Left = Cursor.Position.X - mouseX
+            Me.Top = Cursor.Position.Y - mouseY
+        End If
+    End Sub
+
+    ' Mouse Up Event (When user releases mouse button)
+    Private Sub login_form_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+        moveForm = False
+    End Sub
     Private Sub login_form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         PictureBox3.Visible = False
     End Sub

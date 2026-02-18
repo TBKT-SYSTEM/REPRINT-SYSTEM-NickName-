@@ -5,6 +5,8 @@ Imports System.Windows.Forms.Form
 Imports System
 Imports Newtonsoft.Json
 Imports System.Web.Script.Serialization
+Imports System.Web
+
 Public Class Model
     Public reader As SqlDataReader
     Public ID As Integer
@@ -72,7 +74,7 @@ Public Class Model
             If rs <> "0" Then
                 Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
                 For Each item As Object In result_data_json
-                    Result = item("status").ToString()
+                    result = item("status").ToString()
                 Next
             End If
             If result <> 0 Then
@@ -99,6 +101,7 @@ Public Class Model
         Try
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/GET_DATA_TAG?qr_code=" & qr_code)
             Console.WriteLine("GET_DATA_TAG= ===>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/GET_DATA_TAG?qr_code=" & qr_code)
+
             Return rs
         Catch ex As Exception
             MsgBox("ERROR!! GET_DATA_TAG :" & ex.Message())
@@ -106,16 +109,103 @@ Public Class Model
         Return 0
     End Function
 
-    Public Function get_data_tag_qrcode(ByVal qr_code As String)
+    Public Function get_data_qgate_tag(ByVal qr_code As String)
         Try
-            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_qrcode?qr_code=" & qr_code)
-            Console.WriteLine("API_MODEL====>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_qrcode?qr_code=" & qr_code)
+            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_qgate_tag?qr_code=" & qr_code)
             Return rs
         Catch ex As Exception
-            MsgBox("ERROR!! get_data_tag_qrcode :" & ex.Message())
+            MsgBox("ERROR!! get_data_qgate :" & ex.Message())
         End Try
         Return 0
     End Function
+
+    Public Function get_data_qgate_dmc(ByVal qr_code As String)
+        Try
+            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_qgate_dmc?qr_code=" & qr_code)
+            Console.WriteLine("GET_DATA_TAG= ===>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_qgate_dmc?qr_code=" & qr_code)
+            Return rs
+        Catch ex As Exception
+            MsgBox("ERROR!! get_data_qgate_dmc :" & ex.Message())
+        End Try
+        Return 0
+    End Function
+
+    Public Function dmc_get_data_qgate(ByVal qr_code As String)
+
+
+        Try
+            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/dmc_get_data_qgate?qr_code=" & qr_code)
+            Console.WriteLine("GET_DATA_TAG= ===>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/dmc_get_data_qgate?qr_code=" & qr_code)
+            Return rs
+        Catch ex As Exception
+            MsgBox("ERROR!! get_data_qgate :" & ex.Message())
+        End Try
+        Return 0
+    End Function
+
+    Public Function get_count_tag(ByVal qr_code As String) As Integer
+        Try
+            Dim url As String = "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_count_tag?qr_code=" & qr_code
+            Dim rs As String = Api.Load_data(url)
+
+            If rs <> "0" Then
+                Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
+                Dim count As Integer
+                For Each item As Object In result_data_json
+                    count = item("tag_count").ToString()
+                Next
+
+                If count <> 0 Then
+                    Return count
+                Else
+                    Return 0
+                End If
+            End If
+        Catch ex As Exception
+        End Try
+        Return 0
+    End Function
+
+    Public Async Function get_data_tag_qrcode(ByVal qr_code As String) As Task(Of String)
+        Try
+            Dim baseUrl As String = "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_qrcode?qr_code="
+            Dim qrSafe As String = If(qr_code, String.Empty).Trim()
+            ' Optional: normalize whitespace if server expects it
+            qrSafe = System.Text.RegularExpressions.Regex.Replace(qrSafe, "\s+", " ")
+            Dim url As String = baseUrl & Uri.EscapeDataString(qrSafe)
+            Console.WriteLine("get_data_tag_qrcode URL => " & url)
+
+            Using client As New System.Net.Http.HttpClient()
+                ' Increase timeout above your server processing time (e.g. 2 minutes)
+                client.Timeout = TimeSpan.FromMinutes(3)
+
+                Dim response As System.Net.Http.HttpResponseMessage = Nothing
+                Dim body As String = String.Empty
+
+                Try
+                    response = Await client.GetAsync(url)
+                    body = Await response.Content.ReadAsStringAsync()
+                Catch ex As TaskCanceledException
+                    ' Timeout or cancellation
+                    Console.WriteLine("get_data_tag_qrcode: request canceled/timeout after " & client.Timeout.TotalSeconds & "s. Exception: " & ex.Message)
+                    Return String.Empty
+                Catch ex As Exception
+                    Console.WriteLine("get_data_tag_qrcode: request failed: " & ex.Message)
+                    Return String.Empty
+                End Try
+
+                Console.WriteLine("HTTP " & CInt(response.StatusCode) & " " & response.ReasonPhrase)
+                Console.WriteLine("Response length: " & If(body Is Nothing, -1, body.Length))
+                Console.WriteLine("Response body: " & If(body, ""))
+
+                Return If(body, String.Empty)
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("ERROR get_data_tag_qrcode: " & ex.Message)
+            Return String.Empty
+        End Try
+    End Function
+
 
     Public Function get_data_log_tag_qrcode(ByVal qr_code As String)
         Try
@@ -123,7 +213,7 @@ Public Class Model
             Console.WriteLine("API_MODEL====>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_log_tag_qrcode?qr_code=" & qr_code)
             Return rs
         Catch ex As Exception
-            MsgBox("ERROR!! get_data_tag_qrcode :" & ex.Message())
+            MsgBox("ERROR!! get_data_log_tag_qrcode :" & ex.Message())
         End Try
         Return 0
     End Function
@@ -142,6 +232,17 @@ Public Class Model
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_log?qr_code=" & qr_code)
             Console.WriteLine("get_data_tag_log   ====>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_log?qr_code=" & qr_code)
             Console.WriteLine("get_data_tag_log rs ====>" & rs)
+            Return rs
+        Catch ex As Exception
+            MsgBox("ERROR!! get_data_tag_log :" & ex.Message())
+        End Try
+        Return 0
+    End Function
+    Public Function check_duplicate_tag_fa(ByVal qr_code As String)
+        Try
+            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/check_duplicate_tag_fa?qr_code=" & qr_code)
+            Console.WriteLine("check_duplicate_tag_fa   ====>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/check_duplicate_tag_fa?qr_code=" & qr_code)
+            Console.WriteLine("check_duplicate_tag_fa rs ====>" & rs)
             Return rs
         Catch ex As Exception
             MsgBox("ERROR!! get_data_tag_log :" & ex.Message())
@@ -207,21 +308,6 @@ Public Class Model
         End Try
         Return 0
     End Function
-    'Public Function get_data_qr(ByVal id As String)
-    '    Try
-    '        Dim conn = New connect()
-    '        Dim connect = conn.connect_reprint_newfa()
-    '        Dim strCommand = "select * from log_reprint_app where log_id = " & id & ""
-    '        Dim command As SqlCommand = New SqlCommand(strCommand, connect)
-    '        reader = command.ExecuteReader()
-    '
-    '        Return reader
-    '        reader.Close()
-    '    Catch ex As Exception
-    '        MsgBox("ERROR!! get_data_tag_log :" & ex.Message())
-    'End Try
-    'Return 0
-    'End Function
     Public Function update_status(ByVal id As String)
         Try
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/update_status?id=" & Trim(id))
@@ -400,6 +486,8 @@ Public Class Model
     Public Function get_data_tag_log_reprint(ByVal line As String, ByVal year As String, ByVal part_no As String, ByVal lot_no As String)
         Try
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_log_reprint?line=" & line & "&year=" & year & "&part_no=" & part_no & "&lot_no=" & lot_no)
+            Console.WriteLine("get_data_tag_log_reprint====>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_log_reprint?line=" & line & "&year=" & year & "&part_no=" & part_no & "&lot_no=" & lot_no)
+            MsgBox(rs)
             Return rs
         Catch ex As Exception
         End Try
@@ -449,6 +537,8 @@ Public Class Model
         Try
             Dim rs As String = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_to_reprint_new_fa?line=" & line & "&actaul_date=" & actaul_date & "&lot_no=" & lot_no & "&wi=" & wi)
             Console.WriteLine("get_data_to_reprint_new_fa=====>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_to_reprint_new_fa?line=" & line & "&actaul_date=" & actaul_date & "&lot_no=" & lot_no & "&wi=" & wi)
+            'MsgBox(rs)
+
             Console.WriteLine("get_data_to_reprint_new_fa result ====>" & rs)
             Return rs
         Catch ex As Exception
@@ -480,7 +570,7 @@ Public Class Model
         End Try
         Return 0
     End Function
-    Public Function get_data_tag_new_fa(ByVal wi As String)
+    Public Shared Function get_data_tag_new_fa(ByVal wi As String)
         Try
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_new_fa?wi=" & wi)
             Dim next_process As String = ""
@@ -494,8 +584,9 @@ Public Class Model
         Catch ex As Exception
             MsgBox("ERROR!! get_data_tag_new_fa :" & ex.Message())
         End Try
+        Return 0
     End Function
-    Public Function next_process_packing(ByVal wi As String)
+    Public Shared Function next_process_packing(ByVal wi As String)
         Try
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/next_process_packing?wi=" & wi)
             Dim next_process As String = ""
@@ -509,6 +600,7 @@ Public Class Model
         Catch ex As Exception
             MsgBox("ERROR!! get_data_tag_new_fa :" & ex.Message())
         End Try
+        Return 0
     End Function
 
     Public Function insert_new_fa_print(ByVal ref_db As Integer, ByVal log_ref As Integer)
@@ -725,7 +817,7 @@ Public Class Model
         Return 0
     End Function
 
-    Public Async Function get_data_tag_for_dummy(ByVal wi As String, ByVal seq As String, ByVal lot_no As String) As Task(Of String)
+    Public Shared Async Function get_data_tag_for_dummy(ByVal wi As String, ByVal seq As String, ByVal lot_no As String) As Task(Of String)
         Try
             Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_for_dummy?wi=" & wi & "&lot_no=" & lot_no & "&seq=" & seq)
             Console.WriteLine("DUMMY1===>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_tag_for_dummy?wi=" & wi & "&lot_no=" & lot_no & "&seq=" & seq)
@@ -753,6 +845,41 @@ Public Class Model
                 End If
             End If
         Catch ex As Exception
+        End Try
+        Return 0
+    End Function
+
+    Public Shared Function get_cus_item(ByVal LB_PART_NO As String)
+        Try
+            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_cus_item?LB_PART_NO=" & LB_PART_NO)
+            Console.WriteLine("GET_DATA_TAG= ===>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_cus_item?LB_PART_NO=" & LB_PART_NO)
+            If rs <> "0" Then
+
+                Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
+                Dim cus_items As String = ""
+                For Each item As Object In result_data_json
+                    cus_items = item("CUST_ITEM_CD").ToString()
+                Next
+                If cus_items <> "" Then
+                    Return cus_items
+                Else
+                    Return ""
+                End If
+            End If
+            Return rs
+        Catch ex As Exception
+            MsgBox("ERROR!! get_cus_item :" & ex.Message())
+        End Try
+        Return 0
+    End Function
+
+    Public Function get_data_sup_work_plan_supply(ByVal LB_PART_NO As String)
+        Try
+            Dim rs = Api.Load_data("http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_sup_work_plan_supply?LB_PART_NO=" & LB_PART_NO)
+            Console.WriteLine("GET_DATA_TAG= ===>" & "http://192.168.161.207/API_NEW_FA/API_REPRINT_FA_APP_UPDATE/get_data_sup_work_plan_supply?LB_PART_NO=" & LB_PART_NO)
+            Return rs
+        Catch ex As Exception
+            MsgBox("ERROR!! get_cus_item :" & ex.Message())
         End Try
         Return 0
     End Function

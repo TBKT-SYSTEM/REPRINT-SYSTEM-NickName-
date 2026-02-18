@@ -37,7 +37,92 @@ ReprintFA
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:ReprintFA.My.Resources.Resources.SCAN_TAG">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.SCAN_TAG1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.Screenshot_2025_02_11_122022">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:ReprintFA.My.Resources.Resources.stock_logo_2_white_1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.Submit">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.SUBMIT__1_">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.SUBMIT__2_">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.Submit_removebg_preview">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.Submit1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.เพิ่มหัวเรื่อง">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.เพิ่มหัวเรื่อง1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.เพิ่มหัวเรื่อง2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__1_">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__1__removebg_preview">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__1_1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__2_">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ReprintFA.My.Resources.Resources.ดีไซน์ที่ยังไม่ได้ตั้งชื่อ_removebg_preview">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

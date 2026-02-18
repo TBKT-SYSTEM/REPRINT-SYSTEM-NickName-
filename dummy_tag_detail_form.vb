@@ -25,16 +25,20 @@ Public Class dummy_tag_detail_form
         seq_tag = seq
         lot_tag = lot
         line_tag = line
+
         Try
             InitializeComponent()
             Dim rs = Await back_office.get_data_tag_for_dummy(wi_tag, seq_tag, lot_tag)
+
             If rs <> "0" Then
+
                 Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
 
                 For Each item As Object In result_data_json
                     Dim qr_detail As String = item("qr_detail").ToString()
                     Dim plan As String = qr_detail.Substring(8, 8)
                     Dim actual As String = qr_detail.Substring(44, 8)
+
                     Dim act As Date = Date.ParseExact(actual, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
                     Dim pld As Date = Date.ParseExact(plan, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
                     Dim lot1 As String = qr_detail.Substring(44, 18)
@@ -55,6 +59,7 @@ Public Class dummy_tag_detail_form
                     tag_show_data.Text = 1
                     cur_qty = qty_show_data.Text
                 Next
+
                 get_data()
             End If
             part_no_tag = part_no_show_data.Text
@@ -69,7 +74,7 @@ Public Class dummy_tag_detail_form
             End If
 
         Catch ex As Exception
-            MsgBox("Catch")
+            MsgBox("Catcha")
             'alert.Visible = True
         End Try
 
@@ -123,6 +128,7 @@ Public Class dummy_tag_detail_form
     Public Sub get_data()
         Dim Model_reprint As New Model()
         Dim rs = Model_reprint.GET_DATA_TAG_2(wi_tag)
+
         If rs <> "0" Then
             Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
             For Each item As Object In result_data_json
@@ -156,8 +162,8 @@ Public Class dummy_tag_detail_form
             tag_type_1()
             Me.Close()
         Else
-            Dim rs = back_office.get_detail_tag_main(qr_code_tag)
 
+            Dim rs = back_office.get_detail_tag_main(qr_code_tag)
 
             If rs <> "0" Then
                 Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
@@ -188,6 +194,7 @@ Public Class dummy_tag_detail_form
     End Sub
 
     Public Sub tag_type_1()
+        'MsgBox("Tag Type 1")
         Dim tag_amount As Integer = tag_show_data.Text
         If tag_amount > 10 Then
             succes.Image = Api.DownloadImage("http://192.168.161.102/reprint_app/images/alert/alert_max_tag_time.png")
@@ -207,6 +214,7 @@ Public Class dummy_tag_detail_form
 
             Exit Sub
         End If
+
         If box_max = 0 Then
             box_max = 900
             Dim index As Integer = 1
@@ -293,18 +301,16 @@ Public Class dummy_tag_detail_form
         ' Process tags
         For index As Integer = 1 To tag_amount
             qr_detail = new_qr_code & box_max
-            newForm.printTagDummy(wi_tag, actaul_tag, box_max, seq_tag, lot_tag, qty_tag_key, plan_tag, qr_code_tag, instr_tag, tag_ref_str_id, log_id_main)
-            back_office.insert_dummy_tag2(log_id, cur_qty, qty_show_data.Text, box_tag, box_max, "ISUZU", qr_detail)
+
+            newForm.printTagDummy(wi_tag, actaul_tag, box_max, seq_tag, lot_tag, qty_tag_key, plan_tag, qr_code_tag, instr_tag, tag_ref_str_id, log_id_main, cur_qty)
 
             ' Check max box limit
             If box_max = 999 Then
                 MsgBox("Box Number Over 999")
                 Exit Sub
             End If
-
             box_max += 1
         Next
-
         ' Show success message
         MsgBox("Success")
 
@@ -405,12 +411,15 @@ Public Class dummy_tag_detail_form
         e.Graphics.DrawImage(qr_code_2.Image, 620, 199, 70, 70)
         back_office.insert_dummy_tag(log_id, cur_qty, qty_show_data.Text, box_tag, box_max, next_process, qr_detail)
     End Sub
+
     Private Sub succes_Click(sender As Object, e As EventArgs) Handles succes.Click
         succes.Visible = False
         tag_show_data.Focus()
     End Sub
+
     Private Sub succes_KeyPress(sender As Object, e As KeyPressEventArgs) Handles succes.KeyPress
         succes.Visible = False
         tag_show_data.Focus()
     End Sub
+
 End Class

@@ -7,15 +7,18 @@ Public Class menu_form
     Dim button As Button
     Dim back_office As New Model
     Dim reader As SqlDataReader
-    Dim select_menu As Integer
+    Dim select_menu As Integer = 0
     Dim loadingForm As New loading
+
     Private Sub Label1_ParentChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.ParentChanged
         Label1.Text = login_form.Str.ToString()
         '  Dim current_time = Date.Today
         DateTimePicker1.Value = Date.Today
         ' MsgBox("user : " + Label1.Text)
     End Sub
+
     Private Sub menu_form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        DragFormHelper.EnableDrag(Me)
         inputScanSearch.Focus()
         year_data.Items.Clear()
         Dim current_time = Date.Today.Year
@@ -26,13 +29,13 @@ Public Class menu_form
             current_time -= 1
         Loop
     End Sub
+
     Public Sub New()
         InitializeComponent()
         Try
             Dim Model As New Model()
             Dim rs = Model.GET_DATA_USER(Trim(Label1.Text))
             If rs <> "0" Then
-
                 Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
                 For Each item As Object In result_data_json
                     Dim path As String = item("picture_path").ToString() & item("picture_name").ToString()
@@ -59,11 +62,14 @@ Public Class menu_form
             MsgBox(ex.Message())
         End Try
     End Sub
+
     Private Sub Buttons_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim c As Control = DirectCast(sender, Control)
+
+
         If c.Tag = "reprint.png" Then
             scan_tag.Show()
-            Me.Close()
+            Me.Hide()
         ElseIf c.Tag = "log_reprint.png" Then
             log_reprint()
         ElseIf c.Tag = "newfa_reprint.png" Then
@@ -77,7 +83,11 @@ Public Class menu_form
         ElseIf c.Tag = "newfa_reprintPD4.png" Then
             select_menu = 3
             new_fareprint()
+        ElseIf c.Tag = "reprint_qgate.png" Then
+            select_menu = 4
+            reprint_qgate()
         End If
+
     End Sub
     Public Sub pd_line()
         Dim rs = back_office.getpd()
@@ -109,7 +119,7 @@ Public Class menu_form
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         login_form.Visible = True
-        Me.Close()
+        Me.Hide()
     End Sub
     Private Sub month_data_MouseDown(sender As Object, e As MouseEventArgs) Handles month_data.MouseDown
         If year_data.Text = "" Then
@@ -120,9 +130,11 @@ Public Class menu_form
             year_data.Focus()
         End If
     End Sub
+
     Private Sub part_no_data_MouseDown(sender As Object, e As MouseEventArgs) Handles part_no_data.MouseDown
         readonly_false()
     End Sub
+
     Private Sub part_no_data_MouseLeave(sender As Object, e As EventArgs) Handles part_no_data.MouseLeave
         If part_no_data.Text <> "" Then
             If lot_no_data.Text <> "" Then
@@ -131,6 +143,7 @@ Public Class menu_form
         End If
         Button1.BringToFront()
     End Sub
+
     Private Sub lot_no_data_MouseLeave(sender As Object, e As EventArgs) Handles lot_no_data.MouseLeave
         If part_no_data.Text <> "" Then
             If lot_no_data.Text <> "" Then
@@ -139,6 +152,7 @@ Public Class menu_form
         End If
         Button1.BringToFront()
     End Sub
+
     Public Sub readonly_false()
         If pd_data.Text <> "" Then
             If line_data.Text <> "" Then
@@ -151,6 +165,7 @@ Public Class menu_form
             End If
         End If
     End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         '   back_office.get_data_tag_log_reprint()
         If pd_data.Text.Length = 0 Then
@@ -175,7 +190,7 @@ Public Class menu_form
             alert.Focus()
         Else
             log_reprint_form.Show()
-            Me.Close()
+            Me.Hide()
             ' reader.Close()
         End If
     End Sub
@@ -277,6 +292,7 @@ Public Class menu_form
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+
         If pd_data.Text.Length = 0 Then
             ' MsgBox("BBB")
             alert.Image = Api.DownloadImage("http://192.168.161.102/reprint_app/images/alert/production_department.png")
@@ -291,17 +307,17 @@ Public Class menu_form
             alert.Focus()
         Else
 
-
             If select_menu = 1 Then
                 newfa_reprint_form.Show()
-                Me.Close()
+                Me.Hide()
             ElseIf select_menu = 2 Then
                 dummy_tag_form.Show()
-                Me.Close()
+                Me.Hide()
             ElseIf select_menu = 3 Then
                 newfa_reprint_formPD4.Show()
                 Me.Hide()
             End If
+
         End If
     End Sub
 
@@ -339,6 +355,7 @@ Public Class menu_form
         line_data.BringToFront()
         pd_line()
     End Sub
+
     Public Sub new_fareprintPD4()
         fillter_data.Image = Api.DownloadImage("http://192.168.161.102/reprint_app/images/filter_newfa.png")
         pd_data.BackColor = System.Drawing.Color.White
@@ -373,6 +390,11 @@ Public Class menu_form
         pd_data.BringToFront()
         line_data.BringToFront()
         pd_line()
+    End Sub
+
+    Public Sub scan_tag_menu()
+        scan_tag.Show()
+        Me.Hide()
     End Sub
     Public Sub log_reprint()
         fillter_data.Image = Api.DownloadImage("http://192.168.161.102/reprint_app/images/filter_data.png")
@@ -413,6 +435,7 @@ Public Class menu_form
         asterisk_4.BringToFront()
         pd_line()
     End Sub
+
     Public Sub _m83_reprint()
         fillter_data.Image = Api.DownloadImage("http://192.168.161.102/reprint_app/images/filter_m83.png")
         fillter_data.Top = 190
@@ -445,6 +468,7 @@ Public Class menu_form
         pd_dummy()
 
     End Sub
+
     Public Sub dummy_tag()
         fillter_data.Image = Api.DownloadImage("http://192.168.161.102/reprint_app/images/filter_newfa.png")
         pd_data.BackColor = System.Drawing.Color.White
@@ -482,6 +506,12 @@ Public Class menu_form
         pd_line()
     End Sub
 
+    Public Sub reprint_qgate()
+        Dim qgateForm As New reprint_qgate()
+        qgateForm.Show()
+        Me.Hide()
+    End Sub
+
     Private Sub DateTimePicker1_TextChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.TextChanged
         asterisk_4.Visible = False
     End Sub
@@ -494,9 +524,10 @@ Public Class menu_form
             alert.Focus()
         Else
             m83_reprint_form_batch.Show()
-            Me.Close()
+            Me.Hide()
         End If
     End Sub
+
     Private Async Sub buttonScanSearch_Click(sender As Object, e As EventArgs) Handles buttonScanSearch.Click
         Dim get_qr_code As String = inputScanSearch.Text.Trim()
 
@@ -514,23 +545,77 @@ Public Class menu_form
         loadingForm.Show()
         loadingForm.Refresh() ' Force UI update
 
-        Await Task.Run(Sub()
-                           ProcessQRCode(get_qr_code)
-                       End Sub)
+        ' Await the Task-returning ProcessQRCode directly so loadingForm stays visible until completion
+        Await ProcessQRCode(get_qr_code)
 
         ' Close the loading form after processing
         loadingForm.Close()
     End Sub
 
-    Private Sub ProcessQRCode(get_qr_code As String)
+    'Private Async Sub ProcessQRCode(get_qr_code As String)
+    '    Dim rs As String = ""
+    '    Dim lastThree As String = get_qr_code.Substring(get_qr_code.Length - 3)
+    '    If lastThree < 800 Then
+    '        rs = Await back_office.get_data_tag_qrcode(get_qr_code)
+
+    '    Else
+    '        rs = back_office.get_data_log_tag_qrcode(get_qr_code)
+    '    End If
+    '    Dim lot_qr As String = Mid(get_qr_code, 59, 4)
+    '    'MsgBox("gg" & rs)
+    '    If rs <> "0" AndAlso Not String.IsNullOrEmpty(rs) Then
+    '        Try
+    '            ' Deserialize JSON data
+    '            Dim result_data_json As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
+
+    '            ' Extract and show data if available
+    '            If result_data_json.Count > 0 Then
+    '                Dim item As Object = result_data_json(0)
+    '                Dim wi As String = item("WI").ToString()
+    '                Dim seq As String = item("seq_no").ToString()
+    '                Dim line As String = get_qr_code.Substring(2, 6)
+    '                Dim lot As String = lot_qr
+
+    '                ' Open form on UI thread
+    '                Me.Invoke(Sub()
+
+    '                              Dim detailForm As New dummy_tag_detail_form()
+    '                              detailForm.SetData(wi, seq, lot, line)
+    '                              detailForm.Show()
+    '                              inputScanSearch.Text = Nothing
+    '                          End Sub)
+    '            Else
+    '                Me.Invoke(Sub()
+    '                              MsgBox("No Data")
+    '                              inputScanSearch.Text = Nothing
+    '                              inputScanSearch.Focus()
+    '                          End Sub)
+    '            End If
+    '        Catch ex As Exception
+    '            Me.Invoke(Sub()
+    '                          MessageBox.Show("Error parsing JSON: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '                          inputScanSearch.Text = String.Empty
+    '                      End Sub)
+    '        End Try
+    '    Else
+    '        Me.Invoke(Sub()
+    '                      MessageBox.Show("No data found or invalid input.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '                      inputScanSearch.Text = String.Empty
+    '                  End Sub)
+    '    End If
+    'End Sub
+
+    Private Async Function ProcessQRCode(get_qr_code As String) As Task
         Dim rs As String = ""
         Dim lastThree As String = get_qr_code.Substring(get_qr_code.Length - 3)
-
         If lastThree < 800 Then
-            rs = back_office.get_data_tag_qrcode(get_qr_code)
+            rs = Await back_office.get_data_tag_qrcode(get_qr_code)
         Else
             rs = back_office.get_data_log_tag_qrcode(get_qr_code)
         End If
+
+        Console.WriteLine("API response for QR: " & If(get_qr_code, ""))
+        Console.WriteLine("API raw response: " & If(rs, "[null or empty]"))
 
         Dim lot_qr As String = Mid(get_qr_code, 59, 4)
 
@@ -539,18 +624,38 @@ Public Class menu_form
                 ' Deserialize JSON data
                 Dim result_data_json As List(Of Object) = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
 
-                ' Extract and show data if available
                 If result_data_json.Count > 0 Then
                     Dim item As Object = result_data_json(0)
-                    Dim wi As String = item("WI").ToString()
-                    Dim seq As String = item("seq_no").ToString()
-                    Dim line As String = item("LINE_CD").ToString()
-                    Dim lot As String = lot_qr
+
+                    ' Use GetItemValue helper and try common key variants
+                    Dim wi As String = GetItemValue(item, "WI")
+                    If String.IsNullOrEmpty(wi) Then wi = GetItemValue(item, "wi")
+
+                    Dim seq As String = GetItemValue(item, "seq_no")
+                    If String.IsNullOrEmpty(seq) Then seq = GetItemValue(item, "SEQ_NO")
+                    If String.IsNullOrEmpty(seq) Then seq = GetItemValue(item, "seq")
+
+                    Dim line As String = ""
+                    Try
+                        line = get_qr_code.Substring(2, 6)
+                    Catch
+                        line = ""
+                    End Try
+
+                    If String.IsNullOrEmpty(wi) OrElse String.IsNullOrEmpty(seq) Then
+                        ' Missing expected keys — show helpful info and log raw JSON
+                        Me.Invoke(Sub()
+                                      MessageBox.Show("API response is missing expected fields (WI or seq_no)." & Environment.NewLine & "Check console output for raw JSON.", "Error parsing JSON", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                      Console.WriteLine("Missing keys in JSON. Raw response: " & rs)
+                                      inputScanSearch.Text = String.Empty
+                                  End Sub)
+                        Return
+                    End If
 
                     ' Open form on UI thread
                     Me.Invoke(Sub()
                                   Dim detailForm As New dummy_tag_detail_form()
-                                  detailForm.SetData(wi, seq, lot, line)
+                                  detailForm.SetData(wi, seq, lot_qr, line)
                                   detailForm.Show()
                                   inputScanSearch.Text = Nothing
                               End Sub)
@@ -562,8 +667,11 @@ Public Class menu_form
                               End Sub)
                 End If
             Catch ex As Exception
+                ' Log raw JSON and error
+                Console.WriteLine("Error parsing JSON. Raw response: " & rs)
+                Console.WriteLine("Parse exception: " & ex.ToString())
                 Me.Invoke(Sub()
-                              MessageBox.Show("Error parsing JSON: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                              MessageBox.Show("Error parsing JSON: " & ex.Message & Environment.NewLine & "Check console for raw API response.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                               inputScanSearch.Text = String.Empty
                           End Sub)
             End Try
@@ -573,8 +681,7 @@ Public Class menu_form
                           inputScanSearch.Text = String.Empty
                       End Sub)
         End If
-    End Sub
-
+    End Function
 
     Private Sub inputScanSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles inputScanSearch.KeyDown
         ' Check if the Enter key was pressed
@@ -631,10 +738,6 @@ Public Class menu_form
         closeModalScanSearch.Visible = False
 
         inputScanSearch.Text = String.Empty
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
     End Sub
 
     Private Sub inputScanSearch_TextChanged(sender As Object, e As EventArgs) Handles inputScanSearch.TextChanged

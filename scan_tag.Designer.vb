@@ -124,7 +124,7 @@ Partial Class scan_tag
         Me.wi.ForeColor = System.Drawing.Color.White
         Me.wi.Location = New System.Drawing.Point(156, 115)
         Me.wi.Name = "wi"
-        Me.wi.Size = New System.Drawing.Size(91, 34)
+        Me.wi.Size = New System.Drawing.Size(75, 28)
         Me.wi.TabIndex = 2
         Me.wi.Text = "not data"
         '
@@ -136,7 +136,7 @@ Partial Class scan_tag
         Me.part_name.ForeColor = System.Drawing.Color.White
         Me.part_name.Location = New System.Drawing.Point(156, 245)
         Me.part_name.Name = "part_name"
-        Me.part_name.Size = New System.Drawing.Size(91, 34)
+        Me.part_name.Size = New System.Drawing.Size(75, 28)
         Me.part_name.TabIndex = 3
         Me.part_name.Text = "not data"
         '
@@ -148,7 +148,7 @@ Partial Class scan_tag
         Me.part_no.ForeColor = System.Drawing.Color.White
         Me.part_no.Location = New System.Drawing.Point(156, 180)
         Me.part_no.Name = "part_no"
-        Me.part_no.Size = New System.Drawing.Size(91, 34)
+        Me.part_no.Size = New System.Drawing.Size(75, 28)
         Me.part_no.TabIndex = 4
         Me.part_no.Text = "not data"
         '
@@ -160,7 +160,7 @@ Partial Class scan_tag
         Me.pro_seq.ForeColor = System.Drawing.Color.White
         Me.pro_seq.Location = New System.Drawing.Point(504, 115)
         Me.pro_seq.Name = "pro_seq"
-        Me.pro_seq.Size = New System.Drawing.Size(91, 34)
+        Me.pro_seq.Size = New System.Drawing.Size(75, 28)
         Me.pro_seq.TabIndex = 5
         Me.pro_seq.Text = "not data"
         '
@@ -172,7 +172,7 @@ Partial Class scan_tag
         Me.box_no.ForeColor = System.Drawing.Color.White
         Me.box_no.Location = New System.Drawing.Point(504, 180)
         Me.box_no.Name = "box_no"
-        Me.box_no.Size = New System.Drawing.Size(91, 34)
+        Me.box_no.Size = New System.Drawing.Size(75, 28)
         Me.box_no.TabIndex = 6
         Me.box_no.Text = "not data"
         '
@@ -184,7 +184,7 @@ Partial Class scan_tag
         Me.actual_date.ForeColor = System.Drawing.Color.White
         Me.actual_date.Location = New System.Drawing.Point(504, 245)
         Me.actual_date.Name = "actual_date"
-        Me.actual_date.Size = New System.Drawing.Size(91, 34)
+        Me.actual_date.Size = New System.Drawing.Size(75, 28)
         Me.actual_date.TabIndex = 7
         Me.actual_date.Text = "not data"
         '
@@ -196,7 +196,7 @@ Partial Class scan_tag
         Me.plan_date.ForeColor = System.Drawing.Color.White
         Me.plan_date.Location = New System.Drawing.Point(504, 310)
         Me.plan_date.Name = "plan_date"
-        Me.plan_date.Size = New System.Drawing.Size(91, 34)
+        Me.plan_date.Size = New System.Drawing.Size(75, 28)
         Me.plan_date.TabIndex = 8
         Me.plan_date.Text = "not data"
         '
@@ -208,7 +208,7 @@ Partial Class scan_tag
         Me.lot_no.ForeColor = System.Drawing.Color.White
         Me.lot_no.Location = New System.Drawing.Point(504, 376)
         Me.lot_no.Name = "lot_no"
-        Me.lot_no.Size = New System.Drawing.Size(91, 34)
+        Me.lot_no.Size = New System.Drawing.Size(75, 28)
         Me.lot_no.TabIndex = 10
         Me.lot_no.Text = "not data"
         '
@@ -220,7 +220,7 @@ Partial Class scan_tag
         Me.model.ForeColor = System.Drawing.Color.White
         Me.model.Location = New System.Drawing.Point(156, 310)
         Me.model.Name = "model"
-        Me.model.Size = New System.Drawing.Size(91, 34)
+        Me.model.Size = New System.Drawing.Size(75, 28)
         Me.model.TabIndex = 11
         Me.model.Text = "not data"
         '
@@ -232,7 +232,7 @@ Partial Class scan_tag
         Me.line.ForeColor = System.Drawing.Color.White
         Me.line.Location = New System.Drawing.Point(156, 376)
         Me.line.Name = "line"
-        Me.line.Size = New System.Drawing.Size(91, 34)
+        Me.line.Size = New System.Drawing.Size(75, 28)
         Me.line.TabIndex = 12
         Me.line.Text = "not data"
         '
@@ -244,7 +244,7 @@ Partial Class scan_tag
         Me.shift.ForeColor = System.Drawing.Color.White
         Me.shift.Location = New System.Drawing.Point(156, 439)
         Me.shift.Name = "shift"
-        Me.shift.Size = New System.Drawing.Size(91, 34)
+        Me.shift.Size = New System.Drawing.Size(75, 28)
         Me.shift.TabIndex = 13
         Me.shift.Text = "not data"
         '
@@ -334,7 +334,7 @@ Partial Class scan_tag
         Me.lb_font1.Font = New System.Drawing.Font("Arial", 8.5!)
         Me.lb_font1.Location = New System.Drawing.Point(12, 9)
         Me.lb_font1.Name = "lb_font1"
-        Me.lb_font1.Size = New System.Drawing.Size(0, 17)
+        Me.lb_font1.Size = New System.Drawing.Size(0, 15)
         Me.lb_font1.TabIndex = 24
         '
         'lb_font2
@@ -343,7 +343,7 @@ Partial Class scan_tag
         Me.lb_font2.Font = New System.Drawing.Font("Consolas", 21.5!, System.Drawing.FontStyle.Bold)
         Me.lb_font2.Location = New System.Drawing.Point(56, 9)
         Me.lb_font2.Name = "lb_font2"
-        Me.lb_font2.Size = New System.Drawing.Size(0, 42)
+        Me.lb_font2.Size = New System.Drawing.Size(0, 34)
         Me.lb_font2.TabIndex = 25
         '
         'lb_font3
@@ -352,7 +352,7 @@ Partial Class scan_tag
         Me.lb_font3.Font = New System.Drawing.Font("Arial Narrow", 15.0!, System.Drawing.FontStyle.Bold)
         Me.lb_font3.Location = New System.Drawing.Point(62, 9)
         Me.lb_font3.Name = "lb_font3"
-        Me.lb_font3.Size = New System.Drawing.Size(0, 30)
+        Me.lb_font3.Size = New System.Drawing.Size(0, 24)
         Me.lb_font3.TabIndex = 26
         '
         'lb_font4
@@ -361,7 +361,7 @@ Partial Class scan_tag
         Me.lb_font4.Font = New System.Drawing.Font("Arial", 10.0!)
         Me.lb_font4.Location = New System.Drawing.Point(82, 9)
         Me.lb_font4.Name = "lb_font4"
-        Me.lb_font4.Size = New System.Drawing.Size(0, 19)
+        Me.lb_font4.Size = New System.Drawing.Size(0, 16)
         Me.lb_font4.TabIndex = 27
         '
         'qr_code_1
@@ -380,7 +380,7 @@ Partial Class scan_tag
         Me.lb_font5.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lb_font5.Location = New System.Drawing.Point(88, 29)
         Me.lb_font5.Name = "lb_font5"
-        Me.lb_font5.Size = New System.Drawing.Size(0, 23)
+        Me.lb_font5.Size = New System.Drawing.Size(0, 19)
         Me.lb_font5.TabIndex = 29
         '
         'plan_tag
@@ -388,7 +388,7 @@ Partial Class scan_tag
         Me.plan_tag.AutoSize = True
         Me.plan_tag.Location = New System.Drawing.Point(194, 9)
         Me.plan_tag.Name = "plan_tag"
-        Me.plan_tag.Size = New System.Drawing.Size(0, 16)
+        Me.plan_tag.Size = New System.Drawing.Size(0, 13)
         Me.plan_tag.TabIndex = 30
         '
         'qr_code_2
@@ -417,7 +417,7 @@ Partial Class scan_tag
         Me.plandate.Font = New System.Drawing.Font("Arial", 19.5!, System.Drawing.FontStyle.Bold)
         Me.plandate.Location = New System.Drawing.Point(82, 9)
         Me.plandate.Name = "plandate"
-        Me.plandate.Size = New System.Drawing.Size(0, 38)
+        Me.plandate.Size = New System.Drawing.Size(0, 30)
         Me.plandate.TabIndex = 33
         '
         'lb_font6
@@ -426,7 +426,7 @@ Partial Class scan_tag
         Me.lb_font6.Font = New System.Drawing.Font("Arial", 9.5!)
         Me.lb_font6.Location = New System.Drawing.Point(56, 36)
         Me.lb_font6.Name = "lb_font6"
-        Me.lb_font6.Size = New System.Drawing.Size(0, 18)
+        Me.lb_font6.Size = New System.Drawing.Size(0, 16)
         Me.lb_font6.TabIndex = 34
         '
         'PrintDocument2
@@ -440,7 +440,7 @@ Partial Class scan_tag
         Me.qty_pcs.ForeColor = System.Drawing.Color.White
         Me.qty_pcs.Location = New System.Drawing.Point(595, 417)
         Me.qty_pcs.Name = "qty_pcs"
-        Me.qty_pcs.Size = New System.Drawing.Size(0, 21)
+        Me.qty_pcs.Size = New System.Drawing.Size(0, 17)
         Me.qty_pcs.TabIndex = 35
         '
         'PrintPreviewDialog2
@@ -675,7 +675,7 @@ Partial Class scan_tag
         Me.Label1.Font = New System.Drawing.Font("Bahnschrift Condensed", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(492, 180)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(51, 24)
+        Me.Label1.Size = New System.Drawing.Size(42, 19)
         Me.Label1.TabIndex = 43
         Me.Label1.Text = "Label1"
         '
@@ -687,7 +687,7 @@ Partial Class scan_tag
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(357, 337)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(56, 22)
+        Me.Label2.Size = New System.Drawing.Size(47, 18)
         Me.Label2.TabIndex = 44
         Me.Label2.Text = "Label2"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -700,7 +700,7 @@ Partial Class scan_tag
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label3.Location = New System.Drawing.Point(358, 406)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(56, 22)
+        Me.Label3.Size = New System.Drawing.Size(47, 18)
         Me.Label3.TabIndex = 45
         Me.Label3.Text = "Label3"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -710,7 +710,7 @@ Partial Class scan_tag
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(147, 22)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(0, 16)
+        Me.Label4.Size = New System.Drawing.Size(0, 13)
         Me.Label4.TabIndex = 46
         '
         'font_part_name
@@ -719,14 +719,14 @@ Partial Class scan_tag
         Me.font_part_name.Font = New System.Drawing.Font("Consolas", 21.5!, System.Drawing.FontStyle.Bold)
         Me.font_part_name.Location = New System.Drawing.Point(82, 22)
         Me.font_part_name.Name = "font_part_name"
-        Me.font_part_name.Size = New System.Drawing.Size(0, 42)
+        Me.font_part_name.Size = New System.Drawing.Size(0, 34)
         Me.font_part_name.TabIndex = 47
         '
         'lb_scanner_port
         '
         Me.lb_scanner_port.Location = New System.Drawing.Point(59, 23)
         Me.lb_scanner_port.Name = "lb_scanner_port"
-        Me.lb_scanner_port.Size = New System.Drawing.Size(100, 22)
+        Me.lb_scanner_port.Size = New System.Drawing.Size(100, 20)
         Me.lb_scanner_port.TabIndex = 48
         Me.lb_scanner_port.Text = "emp"
         Me.lb_scanner_port.Visible = False

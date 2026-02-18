@@ -13,48 +13,148 @@ Public Class log_reprint_form
     End Sub
     Private Sub log_reprint_form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     End Sub
+    'Public Sub New()
+    '    InitializeComponent()
+    '    Dim i = 1
+    '    Dim ref_line As String = menu_form.line_data.Text
+    '    Dim ref_year As String = menu_form.year_data.Text
+    '    Dim ref_month As String = month_Convert_to_num(menu_form.month_data.Text)
+    '    Dim year_and_month As String = (ref_year + ref_month)
+    '    Dim ref_part_no As String = menu_form.part_no_data.Text
+    '    Dim ref_lot As String = menu_form.lot_no_data.Text
+    '    Dim rs = back_office.get_data_tag_log_reprint(ref_line, year_and_month, ref_part_no, ref_lot)
+    '    Try
+    '        If rs <> 0 Then
+    '            Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
+
+    '            For Each item As Object In result_data_json
+    '                box.Text = reader("log_new_box_no").ToString()
+    '                qty.Text = reader("log_new_qty").ToString()
+    '                Dim qr_code As String = reader("log_qr_detail").ToString()
+    '                id_menu = reader("id_menu").ToString()
+    '                Dim qr_detail = qr_code.Substring(19, 25)
+
+    '                data_combobox.Text = qr_detail
+    '                Dim lot_detail As String = qr_code.Substring(44, 18)
+    '                lot.Text = lot_detail.Substring(lot_detail.Length - 4)
+    '                Dim qr_code_check As String = qr_code.Substring(0, 52)
+    '                line.Text = qr_code.Substring(2, 6)
+    '                seq.Text = qr_code.Substring(16, 3)
+    '                Dim newitem As New ListViewItem(i)
+    '                newitem.SubItems.Add(qr_detail.Trim)
+    '                newitem.SubItems.Add(lot.Text.Trim)
+    '                newitem.SubItems.Add(line.Text.Trim)
+    '                newitem.SubItems.Add(box.Text)
+    '                newitem.SubItems.Add(qty.Text)
+    '                newitem.SubItems.Add(seq.Text.Trim)
+    '                newitem.SubItems.Add(id_menu)
+    '                ListView1.Items.Add(newitem)
+    '                i += 1
+    '            Next
+    '        End If
+
+    '        If box.Text = "" Then
+    '            alert.Visible = True
+    '        End If
+    '    Catch ex As Exception
+    '        alert.Visible = True
+    '    End Try
+    'End Sub
     Public Sub New()
         InitializeComponent()
-        Dim i = 1
-        Dim ref_line As String = menu_form.line_data.Text
-        Dim ref_year As String = menu_form.year_data.Text
-        Dim ref_month As String = month_Convert_to_num(menu_form.month_data.Text)
-        Dim year_and_month As String = (ref_year + ref_month)
-        Dim ref_part_no As String = menu_form.part_no_data.Text
-        Dim ref_lot As String = menu_form.lot_no_data.Text
+
+        Dim i As Integer = 1
+
+        ' 1) อ่านข้อมูลจากเมนู ตรวจก่อนว่าไม่ว่าง (read inputs safely)
+        Dim ref_line As String = If(menu_form?.line_data?.Text, "").Trim()
+        Dim ref_year As String = If(menu_form?.year_data?.Text, "").Trim()
+        Dim ref_month As String = month_Convert_to_num(If(menu_form?.month_data?.Text, "").Trim())
+        Dim year_and_month As String = ref_year & ref_month
+        Dim ref_part_no As String = If(menu_form?.part_no_data?.Text, "").Trim()
+        Dim ref_lot As String = If(menu_form?.lot_no_data?.Text, "").Trim()
+
+        ' 2) ดึงข้อมูลจาก back_office (fetch data)
+        Dim rs As String = back_office.get_data_tag_log_reprint(ref_line, year_and_month, ref_part_no, ref_lot)
+
         Try
-            Dim rs = back_office.get_data_tag_log_reprint(ref_line, year_and_month, ref_part_no, ref_lot)
-            If rs <> "0" Then
-                Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
-                For Each item As Object In result_data_json
-                    box.Text = reader("log_new_box_no").ToString()
-                    qty.Text = reader("log_new_qty").ToString()
-                    Dim qr_code As String = reader("log_qr_detail").ToString()
-                    id_menu = reader("id_menu").ToString()
-                    Dim qr_detail = qr_code.Substring(19, 25)
-                    data_combobox.Text = qr_detail
-                    Dim lot_detail As String = qr_code.Substring(44, 18)
-                    lot.Text = lot_detail.Substring(lot_detail.Length - 4)
-                    Dim qr_code_check As String = qr_code.Substring(0, 52)
-                    line.Text = qr_code.Substring(2, 6)
-                    seq.Text = qr_code.Substring(16, 3)
-                    Dim newitem As New ListViewItem(i)
-                    newitem.SubItems.Add(qr_detail.Trim)
-                    newitem.SubItems.Add(lot.Text.Trim)
-                    newitem.SubItems.Add(line.Text.Trim)
-                    newitem.SubItems.Add(box.Text)
-                    newitem.SubItems.Add(qty.Text)
-                    newitem.SubItems.Add(seq.Text.Trim)
-                    newitem.SubItems.Add(id_menu)
-                    ListView1.Items.Add(newitem)
-                    i += 1
-                Next
+            ' 3) ตรวจว่า rs เป็น JSON ที่ใช้ได้ (validate response)
+            If Not String.IsNullOrWhiteSpace(rs) AndAlso rs.Trim() <> "0" Then
+                Dim jss = New JavaScriptSerializer()
+                ' คาดว่า rs เป็น Array ของ object: [{"log_new_box_no":...,"log_new_qty":...,"log_qr_detail":...,"id_menu":...}, ...]
+                Dim result_data_json As List(Of Dictionary(Of String, Object)) =
+                jss.Deserialize(Of List(Of Dictionary(Of String, Object)))(rs)
+
+                If result_data_json IsNot Nothing AndAlso result_data_json.Count > 0 Then
+                    For Each item As Dictionary(Of String, Object) In result_data_json
+                        ' 4) อ่านค่าจาก item (use item(...) not reader(...))
+                        Dim boxNo As String = If(TryCast(item("log_new_box_no"), String), Convert.ToString(item("log_new_box_no")))
+                        Dim qtyVal As String = If(TryCast(item("log_new_qty"), String), Convert.ToString(item("log_new_qty")))
+                        Dim qr_code As String = If(TryCast(item("log_qr_detail"), String), Convert.ToString(item("log_qr_detail")))
+                        Dim id_menu As String = If(TryCast(item("id_menu"), String), Convert.ToString(item("id_menu")))
+
+                        ' 5) กัน substring พัง (guard substrings)
+                        Dim qr_detail As String = ""
+                        Dim lot_detail As String = ""
+                        Dim line_text As String = ""
+                        Dim seq_text As String = ""
+
+                        If Not String.IsNullOrEmpty(qr_code) Then
+                            ' ต้องมีอย่างน้อย 44 + 18 = 62 ตัวอักษรสำหรับการตัด lot; และอย่างน้อย 52 สำหรับ qr_code_check
+                            If qr_code.Length >= 44 + 18 Then
+                                lot_detail = qr_code.Substring(44, 18)
+                            End If
+                            If qr_code.Length >= 19 + 25 Then
+                                qr_detail = qr_code.Substring(19, 25)
+                            End If
+                            If qr_code.Length >= 2 + 6 Then
+                                line_text = qr_code.Substring(2, 6)
+                            End If
+                            If qr_code.Length >= 16 + 3 Then
+                                seq_text = qr_code.Substring(16, 3)
+                            End If
+                        End If
+
+                        ' 6) เซ็ตค่าให้คอนโทรล (populate controls)
+                        box.Text = boxNo
+                        qty.Text = qtyVal
+                        data_combobox.Text = qr_detail
+
+                        If Not String.IsNullOrEmpty(lot_detail) AndAlso lot_detail.Length >= 4 Then
+                            lot.Text = lot_detail.Substring(lot_detail.Length - 4)
+                        Else
+                            lot.Text = ""
+                        End If
+
+                        line.Text = line_text
+                        seq.Text = seq_text
+
+                        ' 7) เพิ่มลง ListView (add to ListView)
+                        Dim newitem As New ListViewItem(i.ToString())
+
+                        newitem.SubItems.Add(lot.Text.Trim())
+                        newitem.SubItems.Add(line.Text.Trim())
+                        newitem.SubItems.Add(box.Text)
+                        newitem.SubItems.Add(qty.Text)
+                        newitem.SubItems.Add(seq.Text.Trim())
+                        newitem.SubItems.Add(id_menu)
+                        ListView1.Items.Add(newitem)
+
+                        i += 1
+                    Next
+                End If
             End If
-            If box.Text = "" Then
+
+            ' 8) แสดง alert หากไม่มีข้อมูลกล่อง (show alert if empty)
+            If String.IsNullOrEmpty(box.Text) Then
                 alert.Visible = True
+            Else
+                alert.Visible = False
             End If
+
         Catch ex As Exception
+            ' 9) ช่วย debug ให้เห็นข้อผิดพลาดจริง (surface the real error)
             alert.Visible = True
+            MessageBox.Show($"Error: {ex.Message}{Environment.NewLine}{ex.StackTrace}", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
     Public Function month_Convert_to_num(ByVal month As String)
@@ -90,6 +190,7 @@ Public Class log_reprint_form
         End Try
         Return 0
     End Function
+
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         menu_form.Show()
         Me.Close()
@@ -137,6 +238,7 @@ Public Class log_reprint_form
             MsgBox("EROOR1!!" & " " & ex.Message())
         End Try
     End Sub
+
     Public Sub logreprint_app()
         Dim Model_reprint As New Model()
         Dim rs = Model_reprint.get_data_to_reprint_log(part_no_class, lot_class, line_class, box_class, qty_class)
@@ -186,9 +288,11 @@ Public Class log_reprint_form
             MsgBox(ex.Message)
         End Try
     End Sub
+
     Public Sub runreprint()
         back_office.insert_log_print(ref_id)
     End Sub
+
     Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         Dim aPen = New Pen(Color.Black)
         aPen.Width = 2.0F

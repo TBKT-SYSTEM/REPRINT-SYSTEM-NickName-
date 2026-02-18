@@ -9,7 +9,7 @@
 
     End Sub
     Public Async Function load() As Task(Of String)
-        Me.Show()
+        Me.Hide()
         Return 0
     End Function
 End Class

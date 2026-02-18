@@ -377,7 +377,7 @@ Partial Class dummy_tag_detail_form
         '
         Me.succes.BackColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(36, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.succes.Image = CType(resources.GetObject("succes.Image"), System.Drawing.Image)
-        Me.succes.Location = New System.Drawing.Point(126, 105)
+        Me.succes.Location = New System.Drawing.Point(145, 94)
         Me.succes.Margin = New System.Windows.Forms.Padding(2)
         Me.succes.Name = "succes"
         Me.succes.Size = New System.Drawing.Size(505, 363)

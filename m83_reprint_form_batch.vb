@@ -86,6 +86,7 @@ Public Class m83_reprint_form_batch
 		'PrintPreviewDialog1.ShowDialog()
 		back_office.insert_m83_batch(log_tag_id)
 	End Sub
+
 	Public Sub New()
 		InitializeComponent()
 		Dim ref_wi As String = menu_form.wi_data.Text
@@ -148,6 +149,7 @@ Public Class m83_reprint_form_batch
 			MsgBox("ok error 1")
 		End Try
 	End Sub
+
 	Public Sub get_data()
 		Dim Model_reprint As New Model()
 		'Dim reader As SqlDataReader

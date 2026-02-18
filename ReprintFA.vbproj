@@ -49,11 +49,11 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>TextTemplate.ico</ApplicationIcon>
+    <ApplicationIcon>001.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MessagingToolkit.QRCode">
-      <HintPath>..\..\Users\66614\Downloads\MessagingToolkit.QRCode.dll</HintPath>
+    <Reference Include="MessagingToolkit.QRCode, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MessagingToolkit.QRCode.1.3.0\lib\MessagingToolkit.QRCode.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -107,10 +107,20 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="api.vb" />
     <Compile Include="connect.vb" />
-    <Compile Include="detail_tag_dummy.Designer.vb">
-      <DependentUpon>detail_tag_dummy.vb</DependentUpon>
+    <Compile Include="ModuleDragForm.Designer.vb">
+      <DependentUpon>ModuleDragForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="detail_tag_dummy.vb">
+    <Compile Include="ModuleDragForm.vb" />
+    <Compile Include="Print.Designer.vb">
+      <DependentUpon>Print.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Print.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reprint_qgate.Designer.vb">
+      <DependentUpon>reprint_qgate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="reprint_qgate.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="dummy_tag_form.Designer.vb">
@@ -211,8 +221,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="detail_tag_dummy.resx">
-      <DependentUpon>detail_tag_dummy.vb</DependentUpon>
+    <EmbeddedResource Include="ModuleDragForm.resx">
+      <DependentUpon>ModuleDragForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Print.resx">
+      <DependentUpon>Print.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reprint_qgate.resx">
+      <DependentUpon>reprint_qgate.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dummy_tag_form.resx">
       <DependentUpon>dummy_tag_form.vb</DependentUpon>
@@ -280,6 +296,23 @@
     <None Include="Resources\qr-scan-icon-512x512-9bsp061y %281%29.png" />
     <None Include="Resources\images %281%29.png" />
     <None Include="Resources\Submit.png" />
+    <None Include="Resources\ดีไซน์ที่ยังไม่ได้ตั้งชื่อ.png" />
+    <None Include="Resources\ดีไซน์ที่ยังไม่ได้ตั้งชื่อ %281%29.png" />
+    <None Include="Resources\Submit1.png" />
+    <None Include="Resources\Submit-removebg-preview.png" />
+    <None Include="Resources\ดีไซน์ที่ยังไม่ได้ตั้งชื่อ %281%291.png" />
+    <None Include="Resources\Screenshot 2025-02-11 122022.png" />
+    <None Include="Resources\SUBMIT %281%29.png" />
+    <None Include="Resources\เพิ่มหัวเรื่อง.png" />
+    <None Include="Resources\เพิ่มหัวเรื่อง1.png" />
+    <None Include="Resources\เพิ่มหัวเรื่อง2.png" />
+    <None Include="Resources\SCAN TAG.png" />
+    <None Include="Resources\SUBMIT %282%29.png" />
+    <None Include="Resources\ดีไซน์ที่ยังไม่ได้ตั้งชื่อ %282%29.png" />
+    <None Include="Resources\SCAN TAG1.png" />
+    <None Include="Resources\ดีไซน์ที่ยังไม่ได้ตั้งชื่อ-removebg-preview.png" />
+    <None Include="Resources\ดีไซน์ที่ยังไม่ได้ตั้งชื่อ__1_-removebg-preview.png" />
+    <Content Include="001.ico" />
     <Content Include="TextTemplate.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

@@ -44,7 +44,7 @@ Partial Class login_form
         Me.User_id.Font = New System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 19.8!)
         Me.User_id.Location = New System.Drawing.Point(494, 259)
         Me.User_id.Name = "User_id"
-        Me.User_id.Size = New System.Drawing.Size(180, 36)
+        Me.User_id.Size = New System.Drawing.Size(180, 29)
         Me.User_id.TabIndex = 3
         Me.User_id.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -97,7 +97,7 @@ Partial Class login_form
         Me.select_db.Items.AddRange(New Object() {"test_new_fa02", "tbkkfa01_dev"})
         Me.select_db.Location = New System.Drawing.Point(638, 547)
         Me.select_db.Name = "select_db"
-        Me.select_db.Size = New System.Drawing.Size(151, 32)
+        Me.select_db.Size = New System.Drawing.Size(151, 27)
         Me.select_db.TabIndex = 9
         Me.select_db.Text = "tbkkfa01_dev"
         Me.select_db.Visible = False
@@ -121,13 +121,13 @@ Partial Class login_form
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(4, 569)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(172, 29)
+        Me.Label1.Size = New System.Drawing.Size(123, 23)
         Me.Label1.TabIndex = 11
-        Me.Label1.Text = "Version 1.1.5 P4"
+        Me.Label1.Text = "Version 2.0.0.1"
         '
         'login_form
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(800, 600)

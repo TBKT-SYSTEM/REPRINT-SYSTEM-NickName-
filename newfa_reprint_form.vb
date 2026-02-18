@@ -5,14 +5,8 @@ Imports System.Web.Script.Serialization
 Public Class newfa_reprint_form
     Dim back_office As New Model
     Dim reader As SqlDataReader
+    Dim loadingForm As New loading
     Dim status_log, wi_test, lot_tag, production_type, plan_tag, actaul_tag, next_process, wi_tag, qr_code_tag, shift_tag, seq_tag, box_tag, model_tag, part_name_tag, line_tag, part_no_tag, PD, location_tag As String
-
-    Private Sub newfa_reprint_form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
 
     Dim id_log, qty_tag, ref_db, re_id_log, fa_id_log, line_control As Integer
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -21,8 +15,9 @@ Public Class newfa_reprint_form
     End Sub
 
     Public Sub New()
-        ' This call is required by the designer.
+
         InitializeComponent()
+        loadingForm.Show()
         Dim i = 1
         Dim ref_line As String = menu_form.line_data.Text
         Dim ref_date As String = menu_form.DateTimePicker1.Text
@@ -31,10 +26,9 @@ Public Class newfa_reprint_form
         Dim ref_wi As String = menu_form.wi_data.Text
         Dim ref_prefix As String = ref_line.Substring(0, 3)
 
-        ' ตรวจสอบเงื่อนไขจาก 3 ตัวอักษรแรก
         Dim rs As String = ""
         If ref_prefix = "K1P" Then
-            ' ใช้ API อื่นหาก ref_line เริ่มต้นด้วย "K1P"
+
             rs = back_office.get_data_to_reprint_packing(ref_line, date_show, ref_lot_no, ref_wi)
             If rs <> "0" Then
                 Try
@@ -73,6 +67,8 @@ Public Class newfa_reprint_form
                         ListView1.Items.Add(newitem)
                     Next
                 Catch ex As Exception
+                Finally
+                    loadingForm.Close()
 
                 End Try
             End If
@@ -91,12 +87,16 @@ Public Class newfa_reprint_form
                         Dim qr_code = item("QR_DETAIL").ToString()
                         Dim status_tag = item("STATUS_TAG").ToString()
                         Dim fa_id_log = item("FA_ID").ToString()
-                        Dim re_id_log As String = ""
+
+                        Dim re_id_log As String = "0"
                         Try
-                            re_id_log = item("RE_ID").ToString()
+                            If item IsNot Nothing AndAlso item("RE_ID") IsNot Nothing AndAlso Not IsDBNull(item("RE_ID")) Then
+                                re_id_log = item("RE_ID").ToString()
+                            End If
                         Catch ex As Exception
                             re_id_log = "0"
                         End Try
+
                         Dim date_detail = qr_code.Substring(44, 8)
                         Dim actaul As Date = Date.ParseExact(date_detail, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
                         Dim actaul_show = actaul.ToString("dd/MM/yyyy")
@@ -121,17 +121,14 @@ Public Class newfa_reprint_form
                         ListView1.Items.Add(newitem)
                     Next
                 Catch ex As Exception
-
+                Finally
+                    loadingForm.Close()
                 End Try
             End If
             If wi_test = "" Then
                 alert.Visible = True
             End If
         End If
-        ' Try
-        'Dim rs As String = back_office.get_data_to_reprint_new_fa(ref_line, date_show, ref_lot_no, ref_wi)
-
-
     End Sub
 
     Private Sub alert_Click(sender As Object, e As EventArgs) Handles alert.Click

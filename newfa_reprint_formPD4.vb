@@ -98,6 +98,7 @@ Public Class newfa_reprint_formPD4
         qr_code_2.Image = generate.Encode(qr_code_tag)
         e.Graphics.DrawImage(qr_code_2.Image, 620, 199, 70, 70)
     End Sub
+
     Public Sub New()
         ' This call is required by the designer.
         InitializeComponent()
@@ -124,11 +125,13 @@ Public Class newfa_reprint_formPD4
                     Dim qr_code = item("QR_DETAIL").ToString()
                     Dim status_tag = item("STATUS_TAG").ToString()
                     Dim fa_id_log = item("FA_ID").ToString()
-                    Dim re_id_log As String = ""
+                    Dim re_id_log As String = "0"
                     Try
-                        re_id_log = item("RE_ID").ToString()
+                        If item IsNot Nothing AndAlso item("RE_ID") IsNot Nothing AndAlso Not IsDBNull(item("RE_ID")) Then
+                            re_id_log = item("RE_ID").ToString()
+                        End If
                     Catch ex As Exception
-                        re_id_log = 0
+                        re_id_log = "0"
                     End Try
                     Dim date_detail = qr_code.Substring(44, 8)
                     Dim actaul As Date = Date.ParseExact(date_detail, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
@@ -189,9 +192,12 @@ Public Class newfa_reprint_formPD4
                     Dim qr_code = item("QR_DETAIL").ToString()
                     Dim status_tag = item("STATUS_TAG").ToString()
                     Dim fa_id_log = item("FA_ID").ToString()
+
                     Dim re_id_log As String = "0"
                     Try
-                        re_id_log = item("RE_ID").ToString()
+                        If item IsNot Nothing AndAlso item("RE_ID") IsNot Nothing AndAlso Not IsDBNull(item("RE_ID")) Then
+                            re_id_log = item("RE_ID").ToString()
+                        End If
                     Catch ex As Exception
                         re_id_log = "0"
                     End Try
@@ -318,6 +324,7 @@ Public Class newfa_reprint_formPD4
     Private Sub newfa_reprint_formPD4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Panel1.Visible = False
     End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             If CDbl(Val(tbStartprint.Text)) < 1 Then
@@ -328,6 +335,7 @@ Public Class newfa_reprint_formPD4
             Else
                 Dim i = 1 '
                 Dim count As Integer = CDbl(Val(tbEndprint.Text)) - CDbl(Val(maxBox.Text))
+
                 If count = 0 Then
                     count = 1
                 End If
@@ -339,6 +347,7 @@ Public Class newfa_reprint_formPD4
                 Dim J = 1
                 For CboxNo As Integer = CDbl(Val(tbStartprint.Text)) To CDbl(Val(tbEndprint.Text)) Step 1
                     Dim rs = back_office.get_data_to_reprint_new_faPD4(ref_line, date_show, ref_lot_no, ref_wi, CboxNo)
+
                     If rs <> "0" Then
                         Dim result_data_json As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(rs)
                         For Each item As Object In result_data_json
@@ -353,11 +362,13 @@ Public Class newfa_reprint_formPD4
                             Dim qr_code = item("QR_DETAIL").ToString()
                             Dim status_tag = item("STATUS_TAG").ToString()
                             Dim fa_id_log = item("FA_ID").ToString()
-                            Dim re_id_log As String = ""
+                            Dim re_id_log As String = "0"
                             Try
-                                re_id_log = item("RE_ID").ToString()
+                                If item IsNot Nothing AndAlso item("RE_ID") IsNot Nothing AndAlso Not IsDBNull(item("RE_ID")) Then
+                                    re_id_log = item("RE_ID").ToString()
+                                End If
                             Catch ex As Exception
-                                re_id_log = 0
+                                re_id_log = "0"
                             End Try
                             Dim date_detail = qr_code.Substring(44, 8)
                             Dim actaul As Date = Date.ParseExact(date_detail, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
@@ -367,7 +378,6 @@ Public Class newfa_reprint_formPD4
                             Dim qt_y As String = qr_code.Substring(52, 6) 'lot.Substring(Trim(lot.Length - 7))
                             Dim qty_show = qr_code.Substring(52, 6) 'qt_y.Remove(qt_y.Length - 4)
                             i += 1
-                            wi_tag = wi
                             actaul_tag = actaul_show
                             box_tag = G_boxNo
                             seq_tag = seq
@@ -386,6 +396,7 @@ Public Class newfa_reprint_formPD4
                                 back_office.update_print_count(id_log)
                                 ref_db = 2
                             End If
+                            wi_tag = wi
                             reprint_fa()
                             get_data()
                             Dim plan As String = qr_code_tag.Substring(8, 8)

@@ -103,7 +103,7 @@ Partial Class dummy_tag_form
         Me.line.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.line.Location = New System.Drawing.Point(260, 552)
         Me.line.Name = "line"
-        Me.line.Size = New System.Drawing.Size(0, 28)
+        Me.line.Size = New System.Drawing.Size(0, 23)
         Me.line.TabIndex = 1
         '
         'seq
@@ -113,7 +113,7 @@ Partial Class dummy_tag_form
         Me.seq.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.seq.Location = New System.Drawing.Point(287, 534)
         Me.seq.Name = "seq"
-        Me.seq.Size = New System.Drawing.Size(0, 28)
+        Me.seq.Size = New System.Drawing.Size(0, 23)
         Me.seq.TabIndex = 2
         '
         'part_no
@@ -123,7 +123,7 @@ Partial Class dummy_tag_form
         Me.part_no.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.part_no.Location = New System.Drawing.Point(315, 534)
         Me.part_no.Name = "part_no"
-        Me.part_no.Size = New System.Drawing.Size(0, 28)
+        Me.part_no.Size = New System.Drawing.Size(0, 23)
         Me.part_no.TabIndex = 3
         '
         'box
@@ -133,7 +133,7 @@ Partial Class dummy_tag_form
         Me.box.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.box.Location = New System.Drawing.Point(323, 542)
         Me.box.Name = "box"
-        Me.box.Size = New System.Drawing.Size(0, 28)
+        Me.box.Size = New System.Drawing.Size(0, 23)
         Me.box.TabIndex = 4
         '
         'qty
@@ -143,7 +143,7 @@ Partial Class dummy_tag_form
         Me.qty.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.qty.Location = New System.Drawing.Point(323, 542)
         Me.qty.Name = "qty"
-        Me.qty.Size = New System.Drawing.Size(0, 28)
+        Me.qty.Size = New System.Drawing.Size(0, 23)
         Me.qty.TabIndex = 5
         '
         'PictureBox1
@@ -162,7 +162,7 @@ Partial Class dummy_tag_form
         Me.lot.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.lot.Location = New System.Drawing.Point(229, 534)
         Me.lot.Name = "lot"
-        Me.lot.Size = New System.Drawing.Size(0, 28)
+        Me.lot.Size = New System.Drawing.Size(0, 23)
         Me.lot.TabIndex = 9
         '
         'lb_font1
@@ -171,7 +171,7 @@ Partial Class dummy_tag_form
         Me.lb_font1.Font = New System.Drawing.Font("Arial", 8.5!)
         Me.lb_font1.Location = New System.Drawing.Point(211, 545)
         Me.lb_font1.Name = "lb_font1"
-        Me.lb_font1.Size = New System.Drawing.Size(0, 17)
+        Me.lb_font1.Size = New System.Drawing.Size(0, 15)
         Me.lb_font1.TabIndex = 25
         '
         'lb_font2
@@ -180,7 +180,7 @@ Partial Class dummy_tag_form
         Me.lb_font2.Font = New System.Drawing.Font("Consolas", 21.5!, System.Drawing.FontStyle.Bold)
         Me.lb_font2.Location = New System.Drawing.Point(235, 534)
         Me.lb_font2.Name = "lb_font2"
-        Me.lb_font2.Size = New System.Drawing.Size(0, 42)
+        Me.lb_font2.Size = New System.Drawing.Size(0, 34)
         Me.lb_font2.TabIndex = 26
         '
         'lb_font3
@@ -189,7 +189,7 @@ Partial Class dummy_tag_form
         Me.lb_font3.Font = New System.Drawing.Font("Arial Narrow", 15.0!, System.Drawing.FontStyle.Bold)
         Me.lb_font3.Location = New System.Drawing.Point(287, 542)
         Me.lb_font3.Name = "lb_font3"
-        Me.lb_font3.Size = New System.Drawing.Size(0, 30)
+        Me.lb_font3.Size = New System.Drawing.Size(0, 24)
         Me.lb_font3.TabIndex = 27
         '
         'lb_font5
@@ -198,7 +198,7 @@ Partial Class dummy_tag_form
         Me.lb_font5.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lb_font5.Location = New System.Drawing.Point(287, 547)
         Me.lb_font5.Name = "lb_font5"
-        Me.lb_font5.Size = New System.Drawing.Size(0, 23)
+        Me.lb_font5.Size = New System.Drawing.Size(0, 19)
         Me.lb_font5.TabIndex = 30
         '
         'lb_font6
@@ -207,7 +207,7 @@ Partial Class dummy_tag_form
         Me.lb_font6.Font = New System.Drawing.Font("Arial", 9.5!)
         Me.lb_font6.Location = New System.Drawing.Point(266, 545)
         Me.lb_font6.Name = "lb_font6"
-        Me.lb_font6.Size = New System.Drawing.Size(0, 18)
+        Me.lb_font6.Size = New System.Drawing.Size(0, 16)
         Me.lb_font6.TabIndex = 35
         '
         'font_part_name
@@ -216,7 +216,7 @@ Partial Class dummy_tag_form
         Me.font_part_name.Font = New System.Drawing.Font("Consolas", 21.5!, System.Drawing.FontStyle.Bold)
         Me.font_part_name.Location = New System.Drawing.Point(217, 538)
         Me.font_part_name.Name = "font_part_name"
-        Me.font_part_name.Size = New System.Drawing.Size(0, 42)
+        Me.font_part_name.Size = New System.Drawing.Size(0, 34)
         Me.font_part_name.TabIndex = 48
         '
         'plandate
@@ -225,7 +225,7 @@ Partial Class dummy_tag_form
         Me.plandate.Font = New System.Drawing.Font("Arial", 19.5!, System.Drawing.FontStyle.Bold)
         Me.plandate.Location = New System.Drawing.Point(223, 527)
         Me.plandate.Name = "plandate"
-        Me.plandate.Size = New System.Drawing.Size(0, 38)
+        Me.plandate.Size = New System.Drawing.Size(0, 30)
         Me.plandate.TabIndex = 49
         '
         'PrintDocument1
@@ -292,7 +292,7 @@ Partial Class dummy_tag_form
         Me.font_1.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.font_1.Location = New System.Drawing.Point(23, 9)
         Me.font_1.Name = "font_1"
-        Me.font_1.Size = New System.Drawing.Size(0, 35)
+        Me.font_1.Size = New System.Drawing.Size(0, 27)
         Me.font_1.TabIndex = 72
         Me.font_1.Visible = False
         '
@@ -302,7 +302,7 @@ Partial Class dummy_tag_form
         Me.font_2.Font = New System.Drawing.Font("Arial", 8.0!)
         Me.font_2.Location = New System.Drawing.Point(42, 38)
         Me.font_2.Name = "font_2"
-        Me.font_2.Size = New System.Drawing.Size(0, 16)
+        Me.font_2.Size = New System.Drawing.Size(0, 14)
         Me.font_2.TabIndex = 73
         Me.font_2.Visible = False
         '
@@ -312,7 +312,7 @@ Partial Class dummy_tag_form
         Me.font_4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.font_4.Location = New System.Drawing.Point(42, 18)
         Me.font_4.Name = "font_4"
-        Me.font_4.Size = New System.Drawing.Size(0, 23)
+        Me.font_4.Size = New System.Drawing.Size(0, 18)
         Me.font_4.TabIndex = 75
         Me.font_4.Visible = False
         '
@@ -322,7 +322,7 @@ Partial Class dummy_tag_form
         Me.font_data.Font = New System.Drawing.Font("Arial", 10.0!)
         Me.font_data.Location = New System.Drawing.Point(48, 25)
         Me.font_data.Name = "font_data"
-        Me.font_data.Size = New System.Drawing.Size(0, 19)
+        Me.font_data.Size = New System.Drawing.Size(0, 16)
         Me.font_data.TabIndex = 76
         Me.font_data.Visible = False
         '
@@ -332,12 +332,9 @@ Partial Class dummy_tag_form
         Me.Label_wi_type.Font = New System.Drawing.Font("Arial", 8.3!)
         Me.Label_wi_type.Location = New System.Drawing.Point(54, 27)
         Me.Label_wi_type.Name = "Label_wi_type"
-        Me.Label_wi_type.Size = New System.Drawing.Size(0, 16)
+        Me.Label_wi_type.Size = New System.Drawing.Size(0, 15)
         Me.Label_wi_type.TabIndex = 78
         Me.Label_wi_type.Visible = False
-        '
-        'PrintDocument2
-        '
         '
         'PrintPreviewDialog2
         '
@@ -357,7 +354,7 @@ Partial Class dummy_tag_form
         Me.data_combobox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.data_combobox.Location = New System.Drawing.Point(519, 526)
         Me.data_combobox.Name = "data_combobox"
-        Me.data_combobox.Size = New System.Drawing.Size(0, 28)
+        Me.data_combobox.Size = New System.Drawing.Size(0, 23)
         Me.data_combobox.TabIndex = 11
         '
         'ListView1
@@ -427,7 +424,7 @@ Partial Class dummy_tag_form
         Me.lb_font4.Font = New System.Drawing.Font("Arial", 10.0!)
         Me.lb_font4.Location = New System.Drawing.Point(287, 534)
         Me.lb_font4.Name = "lb_font4"
-        Me.lb_font4.Size = New System.Drawing.Size(0, 19)
+        Me.lb_font4.Size = New System.Drawing.Size(0, 16)
         Me.lb_font4.TabIndex = 28
         '
         'succes
@@ -471,7 +468,7 @@ Partial Class dummy_tag_form
         Me.wi_show_data.ForeColor = System.Drawing.Color.White
         Me.wi_show_data.Location = New System.Drawing.Point(150, 105)
         Me.wi_show_data.Name = "wi_show_data"
-        Me.wi_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.wi_show_data.Size = New System.Drawing.Size(75, 28)
         Me.wi_show_data.TabIndex = 57
         Me.wi_show_data.Text = "not data"
         Me.wi_show_data.Visible = False
@@ -484,7 +481,7 @@ Partial Class dummy_tag_form
         Me.part_no_show_data.ForeColor = System.Drawing.Color.White
         Me.part_no_show_data.Location = New System.Drawing.Point(150, 170)
         Me.part_no_show_data.Name = "part_no_show_data"
-        Me.part_no_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.part_no_show_data.Size = New System.Drawing.Size(75, 28)
         Me.part_no_show_data.TabIndex = 58
         Me.part_no_show_data.Text = "not data"
         Me.part_no_show_data.Visible = False
@@ -497,7 +494,7 @@ Partial Class dummy_tag_form
         Me.part_name_show_data.ForeColor = System.Drawing.Color.White
         Me.part_name_show_data.Location = New System.Drawing.Point(150, 235)
         Me.part_name_show_data.Name = "part_name_show_data"
-        Me.part_name_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.part_name_show_data.Size = New System.Drawing.Size(75, 28)
         Me.part_name_show_data.TabIndex = 59
         Me.part_name_show_data.Text = "not data"
         Me.part_name_show_data.Visible = False
@@ -510,7 +507,7 @@ Partial Class dummy_tag_form
         Me.model_show_data.ForeColor = System.Drawing.Color.White
         Me.model_show_data.Location = New System.Drawing.Point(150, 300)
         Me.model_show_data.Name = "model_show_data"
-        Me.model_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.model_show_data.Size = New System.Drawing.Size(75, 28)
         Me.model_show_data.TabIndex = 60
         Me.model_show_data.Text = "not data"
         Me.model_show_data.Visible = False
@@ -523,7 +520,7 @@ Partial Class dummy_tag_form
         Me.line_show_data.ForeColor = System.Drawing.Color.White
         Me.line_show_data.Location = New System.Drawing.Point(150, 365)
         Me.line_show_data.Name = "line_show_data"
-        Me.line_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.line_show_data.Size = New System.Drawing.Size(75, 28)
         Me.line_show_data.TabIndex = 61
         Me.line_show_data.Text = "not data"
         Me.line_show_data.Visible = False
@@ -536,7 +533,7 @@ Partial Class dummy_tag_form
         Me.shift_show_data.ForeColor = System.Drawing.Color.White
         Me.shift_show_data.Location = New System.Drawing.Point(150, 429)
         Me.shift_show_data.Name = "shift_show_data"
-        Me.shift_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.shift_show_data.Size = New System.Drawing.Size(75, 28)
         Me.shift_show_data.TabIndex = 62
         Me.shift_show_data.Text = "not data"
         Me.shift_show_data.Visible = False
@@ -549,7 +546,7 @@ Partial Class dummy_tag_form
         Me.seq_show_data.ForeColor = System.Drawing.Color.White
         Me.seq_show_data.Location = New System.Drawing.Point(496, 105)
         Me.seq_show_data.Name = "seq_show_data"
-        Me.seq_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.seq_show_data.Size = New System.Drawing.Size(75, 28)
         Me.seq_show_data.TabIndex = 63
         Me.seq_show_data.Text = "not data"
         Me.seq_show_data.Visible = False
@@ -562,7 +559,7 @@ Partial Class dummy_tag_form
         Me.ac_date_show_data.ForeColor = System.Drawing.Color.White
         Me.ac_date_show_data.Location = New System.Drawing.Point(496, 170)
         Me.ac_date_show_data.Name = "ac_date_show_data"
-        Me.ac_date_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.ac_date_show_data.Size = New System.Drawing.Size(75, 28)
         Me.ac_date_show_data.TabIndex = 64
         Me.ac_date_show_data.Text = "not data"
         Me.ac_date_show_data.Visible = False
@@ -575,7 +572,7 @@ Partial Class dummy_tag_form
         Me.plan_date_show_data.ForeColor = System.Drawing.Color.White
         Me.plan_date_show_data.Location = New System.Drawing.Point(496, 235)
         Me.plan_date_show_data.Name = "plan_date_show_data"
-        Me.plan_date_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.plan_date_show_data.Size = New System.Drawing.Size(75, 28)
         Me.plan_date_show_data.TabIndex = 65
         Me.plan_date_show_data.Text = "not data"
         Me.plan_date_show_data.Visible = False
@@ -588,7 +585,7 @@ Partial Class dummy_tag_form
         Me.lot_no_show_data.ForeColor = System.Drawing.Color.White
         Me.lot_no_show_data.Location = New System.Drawing.Point(496, 300)
         Me.lot_no_show_data.Name = "lot_no_show_data"
-        Me.lot_no_show_data.Size = New System.Drawing.Size(91, 34)
+        Me.lot_no_show_data.Size = New System.Drawing.Size(75, 28)
         Me.lot_no_show_data.TabIndex = 66
         Me.lot_no_show_data.Text = "not data"
         Me.lot_no_show_data.Visible = False
@@ -637,7 +634,7 @@ Partial Class dummy_tag_form
         Me.max_box_ps.ForeColor = System.Drawing.Color.White
         Me.max_box_ps.Location = New System.Drawing.Point(580, 408)
         Me.max_box_ps.Name = "max_box_ps"
-        Me.max_box_ps.Size = New System.Drawing.Size(47, 22)
+        Me.max_box_ps.Size = New System.Drawing.Size(39, 18)
         Me.max_box_ps.TabIndex = 71
         Me.max_box_ps.Text = "Label1"
         Me.max_box_ps.Visible = False
@@ -648,7 +645,7 @@ Partial Class dummy_tag_form
         Me.font_3.Font = New System.Drawing.Font("Arial", 10.0!)
         Me.font_3.Location = New System.Drawing.Point(400, 291)
         Me.font_3.Name = "font_3"
-        Me.font_3.Size = New System.Drawing.Size(0, 19)
+        Me.font_3.Size = New System.Drawing.Size(0, 16)
         Me.font_3.TabIndex = 74
         Me.font_3.Visible = False
         '
@@ -658,7 +655,7 @@ Partial Class dummy_tag_form
         Me.font_qty.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.font_qty.Location = New System.Drawing.Point(400, 283)
         Me.font_qty.Name = "font_qty"
-        Me.font_qty.Size = New System.Drawing.Size(0, 35)
+        Me.font_qty.Size = New System.Drawing.Size(0, 27)
         Me.font_qty.TabIndex = 77
         Me.font_qty.Visible = False
         '
